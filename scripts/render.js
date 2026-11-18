@@ -19,13 +19,17 @@ try {
     const panel=page.locator('body > :not(script):not(template):not(style)').first();
     async function capture(file){
       // Capture the component; stages with long scrollable content retain their internal viewport.
-      const png=await panel.screenshot({type:'png',caret:'hide'});
+      const png=await panel.screenshot({type:'png',caret:'hide',animations:p.motion?'allow':'disabled'});
       await writeFile(new URL(file,dir),png);
       return {file,width:png.readUInt32BE(16),height:png.readUInt32BE(20),sha256:createHash('sha256').update(png).digest('hex')};
     }
     const frames=[];
     if(p.capture){
-      if(p.capture.trigger) await page.locator(p.capture.trigger).first().click();
+      if(p.capture.trigger) {
+        const trigger = page.locator(p.capture.trigger).first();
+        if (p.capture.action === 'hover') await trigger.hover();
+        else await trigger.click();
+      }
       for(let i=0;i<7;i++){
         const progress=i/6;
         if(p.capture.type==='scroll'){

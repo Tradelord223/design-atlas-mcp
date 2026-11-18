@@ -8,3 +8,8 @@
 @media(max-width:740px){.intro{grid-template-columns:minmax(0,1fr);gap:28px;padding:34px 0 32px}.intro h1{font-size:clamp(49px,9vw,68px)}.intro-copy{max-width:500px;margin-top:18px;font-size:13px}.intro-actions{margin-top:20px}.featured iframe{height:310px}.featured-footer>span{max-width:none}.masthead .github-link{display:none}.masthead nav{gap:12px}.masthead nav>a{font-size:12px}}
 @media(max-width:600px){.masthead{min-height:112px}.masthead nav{width:100%;gap:18px}.masthead .button{margin-left:auto}.intro h1{font-size:52px;letter-spacing:-1.6px}.intro-actions{gap:8px}.intro-actions .button{font-size:11px;padding:10px 12px;gap:10px}.featured-toolbar select{max-width:155px}.featured-footer{align-items:flex-start;gap:12px}.featured-footer>span{max-width:150px}.featured-footer .text-button{font-size:10px}.featured iframe{height:320px}.install-footer{flex-wrap:wrap}.copy-block{gap:8px;padding:11px}.client-tabs{width:100%}.client-tabs button{flex:1;font-size:11px;padding:8px}#install h2{font-size:38px}}
 @media(max-width:360px){.masthead nav{gap:8px}.masthead nav>a{font-size:11px}.masthead .button{padding:8px 10px;font-size:10px}.featured-toolbar{gap:8px}.featured-toolbar label{font-size:11px}.featured-toolbar select{max-width:135px}.intro h1{font-size:47px}}
+
+.variation-controls { display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.5rem 1rem; margin:.9rem 0; }
+.variation-controls label { font-size:.85rem; font-weight:600; }
+.variation-controls select { justify-self:start; max-width:100%; background:var(--paper,#f6f4ee); color:inherit; font:inherit; padding:.4rem .65rem; border:1px solid #8f998a; border-radius:4px; }
+.variation-note { grid-column:1 / -1; font-size:.86rem; margin:0; }

@@ -1,3 +1,4 @@
+import { embeddedPreview } from './embedded.js';
 import { buildBrandKit } from './brand.js';
 import { packs } from './catalog.js';
 import { importBrandIdentity } from './identity.js';
@@ -75,8 +76,7 @@ function generate() {
     const kit = buildBrandKit({ ...importedTokens, ...brief });
     currentKit = kit;
     // The preview executes only local specimen code and cannot request network resources.
-    const policy = "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; form-action 'none'; base-uri 'none'; object-src 'none'";
-    preview.srcdoc = kit.html.replace('<head>', `<head><meta http-equiv="Content-Security-Policy" content="${policy}">`);
+    preview.srcdoc = embeddedPreview(kit.html, true);
     document.querySelector('#kit-details').hidden = false;
     document.querySelector('#direction-title').textContent = kit.selectedPack.title;
     const pack = packs.find(item => item.id === kit.selectedPack.id);

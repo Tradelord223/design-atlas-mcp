@@ -1,0 +1,15 @@
+{
+  "documentSha256": "4a1252c7af36a7296cdba23cc75c13491c5dd8884591fdeded20652cf8a042ca",
+  "viewport": {
+    "width": 800,
+    "height": 520
+  },
+  "origin": "Rendered Atlas specimen",
+  "poster": {
+    "file": "poster.png",
+    "width": 800,
+    "height": 511,
+    "sha256": "df5809c4fbb775fdc482e4ad4622617b5e86ee429f9c22c8a32b864c8ec77310"
+  },
+  "frames": []
+}

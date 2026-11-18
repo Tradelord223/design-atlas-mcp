@@ -1,3 +1,4 @@
+import { embeddedPreview } from './embedded.js';
 const $ = selector => document.querySelector(selector);
 const grid = $('#grid');
 const detail = $('#detail');
@@ -225,16 +226,35 @@ function openPattern(pattern, body) {
   const iframe = element('iframe');
   iframe.title = `${pattern.title} interactive specimen`;
   iframe.setAttribute('sandbox', 'allow-scripts');
-  iframe.srcdoc = pattern.document;
+  iframe.srcdoc = embeddedPreview(pattern.document);
   stage.append(iframe);
   wrapper.append(tools, stage);
   visual.append(wrapper);
+  let selectedVariation = null;
+  if (pattern.variations?.length) {
+    const group = element('div', 'variation-controls');
+    const picker = element('select');
+    const label = element('label', '', 'Motion treatment');
+    picker.id = 'motion-treatment';
+    label.htmlFor = picker.id;
+    picker.add(new Option('Original study', ''));
+    for (const item of pattern.variations) picker.add(new Option(item.name, item.id));
+    const note = element('p', 'variation-note', pattern.variationTrigger + ' in the preview.');
+    note.setAttribute('role', 'status');
+    picker.addEventListener('change', () => {
+      selectedVariation = pattern.variations.find(item => item.id === picker.value) ?? null;
+      iframe.srcdoc = embeddedPreview(selectedVariation?.document ?? pattern.document);
+      note.textContent = [selectedVariation?.change, pattern.variationTrigger + ' in the preview.'].filter(Boolean).join(' ');
+    });
+    group.append(label, picker, note);
+    visual.append(group);
+  }
   if (pattern.motion) {
     const frames = element('div', 'frames');
     for (let frame = 1; frame <= 7; frame++) {
       const image = element('img');
       image.src = `previews/${encodeURIComponent(pattern.id)}/frame-${frame}.png`;
-      image.alt = `Motion frame ${frame} of 7`;
+      image.alt = `Original study, motion frame ${frame} of 7`;
       image.loading = 'lazy';
       frames.append(image);
     }
@@ -245,8 +265,8 @@ function openPattern(pattern, body) {
   const actions = element('div', 'detail-actions');
   actions.append(
     button('Copy HTML', () => copy(pattern.html), 'button outline'),
-    button('Copy CSS', () => copy(pattern.css), 'button outline'),
-    button('Export specimen ↓', () => download(pattern.document, `${pattern.id}.html`), 'button dark')
+    button('Copy CSS', () => copy([pattern.css, selectedVariation?.css].filter(Boolean).join('\n')), 'button outline'),
+    button('Export specimen ↓', () => download(selectedVariation?.document ?? pattern.document, [pattern.id, selectedVariation?.id].filter(Boolean).join('-') + '.html'), 'button dark')
   );
   if (pattern.js) actions.append(button('Copy JavaScript', () => copy(pattern.js), 'button outline'));
   info.append(actions);
@@ -362,7 +382,7 @@ function selectFeatured() {
   const id = $('#featured-select').value;
   const pattern = catalog.patterns.find(item => item.id === id);
   if (!pattern) return;
-  $('#featured-preview').srcdoc = pattern.document;
+  $('#featured-preview').srcdoc = embeddedPreview(pattern.document);
   $('#featured-preview').title = `${pattern.title} live specimen`;
   $('#featured-hint').textContent = featuredHints[id] || pattern.summary;
 }

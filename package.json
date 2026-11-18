@@ -1,6 +1,6 @@
 {
   "name": "design-atlas-mcp",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A local-first design reference atlas, implementation vault, and brand kit workshop for MCP clients.",
   "type": "module",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "src",
     "assets",
     "docs/reconstruction.md",
+    "docs/details-detail-workflow.md",
     "README.md",
     "LICENSE",
     "examples/harbor-press.json"

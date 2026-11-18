@@ -1,0 +1,141 @@
+{
+  "reference": {
+    "id": "anchored-field-note",
+    "title": "A contextual note beside an existing control",
+    "version": "162b48d02e7223a51e55",
+    "sourceName": "W3C WAI · content on hover or focus",
+    "sourceUrl": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html",
+    "provenance": "Original implementation study of dismissible, hoverable and persistent supplementary content. WAI APG tooltip semantics also inform the behavior. The APG tooltip pattern is a work in progress.",
+    "evidenceFiles": [
+      {
+        "path": "instructions.md",
+        "bytes": 1291,
+        "lines": 24,
+        "sha256": "a759e349e7792c2c2140673c894772b5b0ebc4ce82a1b91a307df30b8dc6fbce"
+      },
+      {
+        "path": "LICENSE.txt",
+        "bytes": 1069,
+        "lines": 22,
+        "sha256": "e5215e507279f306724fea3af1b83068974c2f57fcd93ddf7a97aac49d77adc9"
+      },
+      {
+        "path": "component.html",
+        "bytes": 663,
+        "lines": 1,
+        "sha256": "8e5656a3e5c527e3bbd34c9d53900191538ac00b6671d0cf125474fbd0ac34ae"
+      },
+      {
+        "path": "styles.css",
+        "bytes": 2143,
+        "lines": 5,
+        "sha256": "5de0024d5303ca7d9f47000040a37c0a6f7f2a5ac0aa4cab9ce0911dd155a810"
+      },
+      {
+        "path": "reference.json",
+        "bytes": 1009,
+        "lines": 30,
+        "sha256": "4e80df127b0d8e1afb61d29c086e29a6d240f95bc6c041b22c2aad0b8740f75a"
+      },
+      {
+        "path": "index.html",
+        "bytes": 9904,
+        "lines": 161,
+        "sha256": "4a1252c7af36a7296cdba23cc75c13491c5dd8884591fdeded20652cf8a042ca"
+      },
+      {
+        "path": "behavior.js",
+        "bytes": 6810,
+        "lines": 152,
+        "sha256": "7469566a0203084e798d874726772108ccc0636a7dd502a366d4e2e67e1ae702"
+      }
+    ],
+    "additionalSource": "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/",
+    "sourceStatus": "The WCAG guidance describes dismissible, hoverable and persistent content. The APG tooltip pattern is a work in progress."
+  },
+  "preservation": {
+    "originalMarkupPreserved": true,
+    "sha256": "005c3610fde4f30694c7a94a912e2dcb076a1022a0561bcbc89a7495a6dccc4a",
+    "rewrittenElements": 0,
+    "runtimeChanges": [
+      "One text-only tooltip portal is appended to body.",
+      "The active target references the tooltip through aria-describedby while visible. Its prior description is restored on dismissal."
+    ]
+  },
+  "matchedTargets": [
+    {
+      "note": 1,
+      "selector": ".sensor.moisture",
+      "expectedCount": 1,
+      "count": 1,
+      "targets": [
+        {
+          "tag": "button",
+          "id": null,
+          "labelText": "Explore moisture reading",
+          "labelSource": "supplied aria-label",
+          "startLine": 1,
+          "startColumn": 14919,
+          "sourceMarkup": "<button class=\"sensor mono moisture\" aria-label=\"Explore moisture reading\"><i class=\"crosshair\" aria-hidden=\"true\"></i><span>MOISTURE<strong>34.2%</strong></span></button>"
+        }
+      ]
+    },
+    {
+      "note": 2,
+      "selector": ".sensor.ndvi",
+      "expectedCount": 1,
+      "count": 1,
+      "targets": [
+        {
+          "tag": "button",
+          "id": null,
+          "labelText": "Explore ndvi reading",
+          "labelSource": "supplied aria-label",
+          "startLine": 1,
+          "startColumn": 15090,
+          "sourceMarkup": "<button class=\"sensor mono ndvi\" aria-label=\"Explore ndvi reading\"><i class=\"crosshair\" aria-hidden=\"true\"></i><span>NDVI<strong>0.71</strong></span></button>"
+        }
+      ]
+    },
+    {
+      "note": 3,
+      "selector": ".sensor.canopy",
+      "expectedCount": 1,
+      "count": 1,
+      "targets": [
+        {
+          "tag": "button",
+          "id": null,
+          "labelText": "Explore canopy reading",
+          "labelSource": "supplied aria-label",
+          "startLine": 1,
+          "startColumn": 15248,
+          "sourceMarkup": "<button class=\"sensor mono canopy\" aria-label=\"Explore canopy reading\"><i class=\"crosshair\" aria-hidden=\"true\"></i><span>CANOPY<strong>27.8°C</strong></span></button>"
+        }
+      ]
+    }
+  ],
+  "controller": {
+    "id": "atlas-field-note-03b35581d901",
+    "registry": "window[Symbol.for('design-atlas.field-notes')]",
+    "methods": [
+      "setEnabled(boolean)",
+      "dismiss()",
+      "destroy()"
+    ]
+  },
+  "behavior": {
+    "keyboard": "Focus opens. Escape dismisses without moving focus or cancelling the original event.",
+    "pointer": "Hover opens after 160ms. The note remains while its trigger or its own content is hovered.",
+    "touch": "Touch does not open the note. The existing click/tap action proceeds.",
+    "motion": "A 100ms opacity entrance is removed under prefers-reduced-motion.",
+    "layout": "The portal is fixed within the viewport. The supplied control markup and layout are unchanged."
+  },
+  "contrast": {
+    "foreground": "#eeece6",
+    "background": "#1e2b23",
+    "ratio": 12.47,
+    "minimum": 4.5,
+    "passes": true
+  }
+}

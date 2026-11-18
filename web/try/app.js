@@ -1,3 +1,4 @@
+import { embeddedPreview } from './embedded.js';
 import { searchLibrary } from './search.js';
 import { buildBrandKit } from './brand.js';
 import { escapeHtml } from './catalog.js';
@@ -30,9 +31,8 @@ let sourceTab = 'guidance';
 let currentMode = 'original';
 
 function preview(document, title) {
-  const policy = "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; form-action 'none'; base-uri 'none'; object-src 'none'";
   frame.setAttribute('aria-busy', 'true');
-  frame.srcdoc = document.replace(/<head>/i, `<head><meta http-equiv="Content-Security-Policy" content="${policy}">`);
+  frame.srcdoc = embeddedPreview(document, true);
   frame.title = title;
 }
 

@@ -19,7 +19,7 @@ export async function buildTry(outDir) {
   await writeFile(join(assets, 'catalog.json'), JSON.stringify({ origin: 'Built from the shipped Design Atlas catalog and versioned source bundles', records }) + '\n');
   await Promise.all([
     ...['app.js', 'styles.css', 'walkthrough.mp4', 'walkthrough.png'].map(file => copyFile(new URL(`../web/try/${file}`, import.meta.url), join(assets, file))),
-    ...['brand.js', 'identity.js', 'extensions.js', 'catalog.js', 'library.js', 'motion.js', 'specimens.js', 'search.js'].map(file => copyFile(new URL(`../src/${file}`, import.meta.url), join(assets, file)))
+    ...['embedded.js', 'brand.js', 'identity.js', 'extensions.js', 'catalog.js', 'field-note.js', 'field-note-study.js', 'aperture.js', 'aperture-runtime.js', 'plate-index.js', 'library.js', 'motion.js', 'specimens.js', 'search.js'].map(file => copyFile(new URL(`../src/${file}`, import.meta.url), join(assets, file)))
   ]);
   return { page: join(destination, 'try.html'), assets };
 }

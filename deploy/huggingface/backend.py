@@ -11,8 +11,8 @@ import time
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 
-RELEASE_URL = 'https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/design-atlas-mcp-1.0.1.tgz'
-RELEASE_SHA256 = '80b1b851becdb2f57ee38010ea1a3a5a81645f498d1f53a827dfa02b322ec680'
+RELEASE_URL = 'https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.1.0/design-atlas-mcp-1.1.0.tgz'
+RELEASE_SHA256 = '65117135c2a6a2d81c98a651044e655f2d587afcb15393ed79549b240bce7445'
 
 
 class AtlasBackend:
@@ -45,7 +45,7 @@ class AtlasBackend:
             raise RuntimeError('Atlas requires Node.js 22.16 or newer.')
         marker = self.directory / 'installed-sha256'
         if not marker.exists() or marker.read_text().strip() != RELEASE_SHA256 or not (self.package / 'src/cli.js').exists():
-            archive = self.directory / 'design-atlas-mcp-1.0.1.tgz'
+            archive = self.directory / 'design-atlas-mcp-1.1.0.tgz'
             with urlopen(Request(RELEASE_URL, headers={'User-Agent': 'Design-Atlas-Space/1.0'}), timeout=60) as response:
                 payload = response.read(30_000_001)
             if len(payload) > 30_000_000 or hashlib.sha256(payload).hexdigest() != RELEASE_SHA256:

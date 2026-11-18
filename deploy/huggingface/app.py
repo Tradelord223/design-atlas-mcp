@@ -41,7 +41,7 @@ mount_mcp(app, backend)
 @app.api_route('/healthz', methods=['GET', 'HEAD'])
 def health():
     return {'mcp': 'ready' if backend.process and backend.process.poll() is None else 'unavailable',
-            'release': '1.0.1', 'poster_count': len(backend.catalog),
+            'release': '1.1.0', 'poster_count': len(backend.catalog),
             'visual_search': 'zerogpu' if rank_images and ZERO_GPU else ('cpu' if rank_images else 'disabled'),
             'model_ready': rank_images is not None}
 
@@ -66,7 +66,7 @@ def search(query):
 
 with gr.Blocks(title='Design Atlas') as demo:
     gr.Markdown('# Design Atlas\nAn open design reference library and a public MCP server.\n\n[Browse the gallery](https://tradelord223.github.io/design-atlas-mcp/) · [Brand workbench](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Source and installation](https://github.com/Tradelord223/design-atlas-mcp)')
-    gr.Markdown('## Connect MCP\nUse this Space’s HTTPS origin followed by `/mcp`. This endpoint runs the published Design Atlas 1.0.1 Node server, including its complete tools, prompts, resources, images, and JSON schemas.')
+    gr.Markdown('## Connect MCP\nUse this Space’s HTTPS origin followed by `/mcp`. This endpoint runs the published Design Atlas 1.1.0 Node server, including its complete tools, prompts, resources, images, and JSON schemas.')
     gr.Code((backend.public_origin or 'http://localhost:7860') + '/mcp', language=None, label='MCP endpoint')
     gr.Markdown('## Find visually similar specimens\nCompare your screenshot against the original Atlas posters with an MIT-licensed LAION CLIP ViT-B/32 encoder. Uploaded images are used for this request. They are not added to the library.')
     if rank_images is None:

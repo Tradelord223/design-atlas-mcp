@@ -11,7 +11,7 @@ export async function buildWorkbench(outDir) {
   await writeFile(join(destination, 'workbench.html'), await readFile(template, 'utf8'));
   await Promise.all([
     ...['app.js', 'styles.css'].map(file => copyFile(new URL(`../web/workbench/${file}`, import.meta.url), join(assets, file))),
-    ...['brand.js', 'identity.js', 'extensions.js', 'catalog.js', 'library.js', 'motion.js', 'specimens.js'].map(file => copyFile(new URL(`../src/${file}`, import.meta.url), join(assets, file)))
+    ...['embedded.js', 'brand.js', 'identity.js', 'extensions.js', 'catalog.js', 'field-note.js', 'field-note-study.js', 'aperture.js', 'aperture-runtime.js', 'plate-index.js', 'library.js', 'motion.js', 'specimens.js'].map(file => copyFile(new URL(`../src/${file}`, import.meta.url), join(assets, file)))
   ]);
   return { page: join(destination, 'workbench.html'), assets };
 }

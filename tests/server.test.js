@@ -104,6 +104,16 @@ async function checkTransport(transport){
     assert.match(brandSource.text,/doctype/i);
     const kit=(await request('create_brand_kit',{name:'North Break',description:'A journal of working harbors',packId:'editorial-reference',output:'full'})).structuredContent;
     assert.match(kit.html,/North Break/);assert.ok(kit.implementation.files.some(f=>f.path==='tokens.json'));
+    const existingHtml=' \n<button class="existing-reading" type="button">Water</button>\n ';
+    const contextual=(await request('apply_reference_detail',{referenceId:'anchored-field-note',html:existingHtml,notes:[{selector:'.existing-reading',title:'Water record',body:'Caller-supplied record context.'}]})).structuredContent;
+    assert.equal(contextual.html,existingHtml);
+    assert.equal(contextual.matchedCount,1);
+    assert.match(contextual.javascript,/textContent/);
+    const heroHtml = '<section id="cover"><img class="art" alt="Aerial map"><h1>Survey notes</h1></section>';
+    const hero = (await request('apply_reference_detail', {referenceId:'aperture-hero-reveal', html:heroHtml, hero:{hostSelector:'#cover', mediaSelector:'img.art', treatment:'corner'}})).structuredContent;
+    assert.equal(hero.html, heroHtml);
+    assert.equal(hero.reference.id, 'aperture-hero-reveal');
+    assert.match(hero.files[0].content, /export function attachHeroReveal/);
     const flags=(await request('audit_design',{html:'<img src="photo.png">',copy:'Revolutionary next-generation design.'})).structuredContent;
     assert.ok(flags.issues.length>=2);
     for(const mode of ['detail','rebuild','variations']) await request('remix_inspirations',{ids:[id],mode,detail:'native disclosure'});
@@ -112,6 +122,7 @@ async function checkTransport(transport){
     assert.equal(wrong.isError,true);
     assert.ok((await c.listResources()).resources.some(r=>r.uri==='atlas://library/index'));
     assert.ok((await c.readResource({uri:'atlas://library/index'})).contents.length);
+    assert.equal((await c.getPrompt({name:'upgrade_existing_interface',arguments:{html:'<button>Water</button>',context:'Describe this original record.'}})).messages.length,1);
     assert.equal((await c.getPrompt({name:'design_from_brief',arguments:{brief:'A mineral archive'}})).messages.length,1);
   }finally{await c.close()}
 }

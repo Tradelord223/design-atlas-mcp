@@ -2,7 +2,7 @@
 
 Design Atlas is an open library of working interface studies for designers and coding agents. Search a reference, try the interaction, inspect its HTML and CSS, and turn it into a kit for your brand.
 
-**[Try the guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) · [Browse 36 studies](https://tradelord223.github.io/design-atlas-mcp/) · [Open the brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Get the MCP release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.0.1)**
+**[Test it on STRATA](https://tradelord223.github.io/design-atlas-mcp/field-study/) · [Try the guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) · [Browse 40 studies](https://tradelord223.github.io/design-atlas-mcp/) · [Open the brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Get the MCP release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.1.0)**
 
 | A quiet product introduction | Working issue queue | An editorial motion study |
 | --- | --- | --- |
@@ -12,24 +12,37 @@ Design Atlas is an open library of working interface studies for designers and c
 
 | To try | Open | What you can do |
 | --- | --- | --- |
-| A before-and-after redesign | [STRATA comparison film](https://tradelord223.github.io/design-atlas-mcp/films/strata/) | See how an existing ChatGPT Site changes when its field readings, icons and interaction are adapted with the MCP. |
+| The original STRATA hero | [Interactive field study](https://tradelord223.github.io/design-atlas-mcp/field-study/) | Try a field note and replay a bounded reveal on the existing satellite image. |
+| The first STRATA redesign | [STRATA comparison film](https://tradelord223.github.io/design-atlas-mcp/films/strata/) | See how an existing ChatGPT Site changes when its field readings, icons and interaction are adapted with the MCP. |
 | A working product pattern | [Guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) | Choose a study, interact with it, inspect the source and adapt it to a brand. |
 | A microinteraction | [Ferry ticket](https://tradelord223.github.io/design-atlas-mcp/?id=press-ticket) | Hold a berth, release it, then inspect the seven motion frames and the code behind the transition. |
 | Your own visual identity | [Brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) | Paste existing HTML and CSS or enter a brief. Preview the kit, check color contrast and download the HTML, stylesheet and tokens. |
 
 [Watch the 14-second recording](https://tradelord223.github.io/design-atlas-mcp/try/walkthrough.mp4) to see the reservation study before and after a brand change. [Download the Harbor Press starter kit](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/harbor-press-kit.zip), unzip it, and open `index.html` to explore the generated site, design tokens and reusable components.
 
+## Refine an existing site
+
+[Try STRATA’s original composition with optional field notes and hero motion](https://tradelord223.github.io/design-atlas-mcp/field-study/). Compare the same aerial hero in both modes. Hover or focus a sensor for a brief explanation, then activate it for the full reading. Choose an opening, replay it on the existing image, and download the JavaScript for that treatment. [Watch the screen demo](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.1.0/strata-original-first.mp4).
+
+[Editorial Wayfinding](https://tradelord223.github.io/design-atlas-mcp/?pack=editorial-wayfinding) includes a destination menu with keyboard and pointer previews, a directional arrow for an existing link, and a replayable hero aperture. The [public demo investigation](docs/details-detail-workflow.md) explains which visual decisions are observable in the Details founder’s film and which implementations are original to Atlas.
+
+Try this in an MCP client:
+
+> Use Design Atlas on my existing site. First show me the visual decision worth keeping. Pick one interaction that would improve the page, compare its working treatments, then apply the one that fits. Keep the original image, headline and navigation functional. Show the change at the same viewport.
+
+Agents can call `remix_inspirations` with `{"ids":["aperture-hero-reveal"],"mode":"variations"}` to see the options, then repeat the call with `"variant":"horizon"` for the working export. For an existing site, call `apply_reference_detail` with its HTML, `"referenceId":"aperture-hero-reveal"` and `"hero":{"hostSelector":"#hero","mediaSelector":".hero-photo","treatment":"horizon"}`. Atlas identifies the two elements in your source and returns a standalone module. Import `attachHeroReveal`, call it once, then use the returned controller’s `play()`, `skip()` and `destroy()` methods. The same tool accepts `anchored-field-note` with a selector and explanatory copy for each existing control.
+
 ## Connect a coding agent
 
 **Install the MCP once.** Download the release tarball into the current directory, then install that local file with Node.js 22.16 or newer. This works with npm 12’s default remote-package policy.
 
 ```sh
-curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/design-atlas-mcp-1.0.1.tgz
-npm install -g ./design-atlas-mcp-1.0.1.tgz
+curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.1.0/design-atlas-mcp-1.1.0.tgz
+npm install -g ./design-atlas-mcp-1.1.0.tgz
 design-atlas-mcp info
 ```
 
-You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/design-atlas-mcp-1.0.1.tgz). The release includes SHA256SUMS.
+You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.1.0/design-atlas-mcp-1.1.0.tgz). The release includes SHA256SUMS.
 
 **In Codex**, register the installed executable and open a fresh chat.
 
@@ -64,14 +77,14 @@ For a GUI client with a restricted PATH, use `node` as the command and the absol
 
 For an existing product, paste its HTML and CSS into the workbench or use `import_brand_identity`. Review the identified colors, type, corner radii and the declarations they came from. Give the agent a specific component and its source. Ask it to preserve the brand typography and the component’s important states, compare two Atlas treatments, and apply the selected change. A screenshot or source link accompanies each study. Atlas previews show original implementations. A source link identifies the product or design-system example behind the study.
 
-## Included in v1.0.1
+## Included in v1.1.0
 
-- **36 studies** covering landing pages, notes, command menus, issue triage, forms, commerce, editorial layouts, financial dashboards, mobile onboarding, studios and motion. Each includes source attribution, an implementation and a versioned evidence bundle.
-- **Nine design packs** with design decisions and tokens. Choose Quiet Product, Precise Workspace, Public Service, Material Commerce, Editorial Reference, Financial Clarity, Daily Companion, Independent Studio or Motion Printshop. The gallery shows the studies in each direction.
+- **40 studies** covering landing pages, notes, command menus, issue triage, forms, commerce, editorial layouts, financial dashboards, mobile onboarding, studios and motion. Each includes source attribution, an implementation and a versioned evidence bundle.
+- **Eleven design packs** with design decisions and tokens. Choose Quiet Product, Precise Workspace, Public Service, Material Commerce, Editorial Reference, Financial Clarity, Daily Companion, Independent Studio, Motion Printshop, Contextual Controls or Editorial Wayfinding. The gallery shows the studies in each direction.
 - **Eight product flows** with ordered steps, a pattern for each step, its goal and a failure or recovery consideration.
 - **4,805 offline SVGs** across Lucide (2,403), Bootstrap Icons (2,078) and Heroicons 24px outline (324). Search by name and get an actual SVG with its license.
 - **A brand workbench and source audit.** Generate responsive HTML, CSS, tokens and reusable components. Review copy, labels, document semantics, keyboard focus and motion rules. Palette checks report measured ratios. Static audits identify what still needs a rendered review.
-- **Remix tools.** Export a complete specimen, isolate a named element, preview three changes side by side, or assemble selected sections and attribute each choice. A portable headline entrance can be attached to the first section in a composition.
+- **Remix tools.** Export a complete specimen, isolate a named element, compare four motion treatments on seven interactive studies, or assemble selected sections and attribute each choice. A portable headline entrance can be attached to the first section in a composition.
 
 ## MCP tools
 
@@ -83,10 +96,10 @@ For an existing product, paste its HTML and CSS into the workbench or use `impor
 | Explore systems | `list_design_packs`, `get_design_pack`, `list_flows`, `get_flow` | Pack tokens, design principles, linked specimens and complete product journeys. |
 | Use icons | `list_icon_packs`, `search_icons`, `get_icon` | Installed families, paginated names, copyable SVG and attribution. |
 | Design for a brand | `import_brand_identity`, `create_brand_kit`, `audit_design` | Evidence from supplied brand markup and CSS, brand-specific output, and issues with concrete fixes. |
-| Adapt a reference | `remix_inspirations` | A standalone rebuild, isolated detail, variations or composition proof from selected references. |
+| Adapt a reference | `remix_inspirations`, `apply_reference_detail` | A standalone rebuild, isolated detail, variation or composition proof. Targeted integrations attach a hero reveal or field notes to existing HTML. |
 | Open a source library | `get_reference_guide` | Official links and client instructions for Details, Mobbin, Granola, Linear and six other design sources. A pasted Details link receives the matching official tool handoff. |
 
-The server also exposes `atlas://library/index` as an MCP resource and `design_from_brief` as a reusable prompt.
+The server also exposes `atlas://library/index` as an MCP resource and the reusable prompts `design_from_brief` and `upgrade_existing_interface`.
 
 ### Search and inspect
 

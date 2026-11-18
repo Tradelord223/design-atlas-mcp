@@ -3,7 +3,7 @@ const base = `
 .motion-study *{box-sizing:border-box}.motion-study h2{margin:.2em 0 .4em;font:500 clamp(38px,8vw,80px)/.99 Georgia,serif;letter-spacing:-.045em;text-wrap:balance}
 .motion-study p{max-width:48ch}.motion-study button,.motion-study summary{font:inherit;cursor:pointer}.motion-study :focus-visible{outline:3px solid #aa4f0b;outline-offset:4px}
 .motion-study .label{font:600 12px/1.4 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}.motion-study button{border:1px solid currentColor;border-radius:4px;padding:10px 16px;color:inherit;background:transparent;min-height:44px}
-@media(prefers-reduced-motion:reduce){.motion-study *,.motion-study *::before,.motion-study *::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){.motion-study *,.motion-study *::before,.motion-study *::after{animation-duration:.001ms!important;animation-delay:0ms!important;transition-duration:.001ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}}
 `;
 const studies = [
   {

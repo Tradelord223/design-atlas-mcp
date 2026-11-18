@@ -2,6 +2,8 @@ import { mkdir, readFile, writeFile, cp } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { patterns, packs, flows, specimenDocument } from '../src/catalog.js';
+import { applyReferenceDetail } from '../src/reference-detail.js';
+import { motionVariations } from '../src/motion-variations.js';
 import { iconPacks, searchIcons } from '../src/icons.js';
 import { buildWorkbench } from './workbench.js';
 import { buildLiveDemo } from './live-demo.js';
@@ -14,6 +16,17 @@ await mkdir(output, { recursive: true });
 for (const name of ['index.html', 'app.js', 'style.css', 'social.png']) {
   await cp(path.join(root, 'web', name), path.join(output, name));
 }
+await cp(path.join(root, 'src/embedded.js'), path.join(output, 'embedded.js'));
+await cp(path.join(root, 'web/field-study'), path.join(output, 'field-study'), { recursive: true });
+const fieldStudy = path.join(output, 'field-study');
+const fieldHtml = await readFile(path.join(fieldStudy, 'original-fragment.html'), 'utf8');
+const exportsDir = path.join(fieldStudy, 'exports');
+await mkdir(exportsDir, {recursive: true});
+for (const {id: treatment} of motionVariations('aperture-hero-reveal').choices) {
+  const result = applyReferenceDetail({referenceId:'aperture-hero-reveal', html:fieldHtml,
+    hero:{hostSelector:'#hero', mediaSelector:'.hero-photo', treatment}});
+  await writeFile(path.join(exportsDir, treatment + '.js'), result.javascript);
+}
 await cp(path.join(root, 'web/films'), path.join(output, 'films'), { recursive: true });
 await cp(path.join(root, 'assets/previews'), path.join(output, 'previews'), { recursive: true });
 await cp(path.join(root, 'assets/icons'), path.join(output, 'icons'), { recursive: true });
@@ -24,7 +37,14 @@ const data = {
   hostedMcpUrl,
   packageVersion,
   packageUrl: `https://github.com/Tradelord223/design-atlas-mcp/releases/download/v${packageVersion}/design-atlas-mcp-${packageVersion}.tgz`,
-  patterns: patterns.map(pattern => ({ ...pattern, document: specimenDocument(pattern) })),
+  patterns: patterns.map(pattern => {
+    const motion = motionVariations(pattern.id);
+    if (!motion) return {...pattern, document:specimenDocument(pattern)};
+    return {
+      ...pattern, document:specimenDocument(pattern), variationTrigger:motion.trigger,
+      variations:motion.choices.map(choice => ({...choice, document:specimenDocument(pattern, {extraCss:choice.css})}))
+    };
+  }),
   packs,
   flows,
   iconPacks,

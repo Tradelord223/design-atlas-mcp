@@ -8,6 +8,7 @@ import {importBrandIdentity} from './identity.js';
 import {referenceGuide} from './public-details.js';
 import { remix } from './remix.js';
 import { buildBrandKit, auditDesign } from './brand.js';
+import { applyReferenceDetail } from './reference-detail.js';
 import { iconPacks, searchIcons, getIcon } from './icons.js';
 
 const str=(n=500)=>z.string().trim().min(1).max(n);
@@ -72,12 +73,18 @@ export const operations=[
     return {brand:kit.brand,selectedPack:kit.selectedPack,tokens:kit.tokens,accessibility:kit.accessibility,sources:kit.sources,
       files:files.map(f=>({path:f.path,bytes:Buffer.byteLength(f.content)})),steps:kit.implementation.steps};
   }],
+  ['apply_reference_detail','Apply an inspected reference to supplied existing HTML. For aperture-hero-reveal pass hero with a host selector, existing media selector and selected treatment. For anchored-field-note pass notes with source text and existing focusable targets. Returns original markup, matched selectors and runnable integration files.',{
+    referenceId:z.enum(['anchored-field-note','aperture-hero-reveal']),referenceVersion:str(100).optional(),html:z.string().min(1).max(150000),
+    notes:z.array(z.strictObject({selector:str(160).describe('One tag/ID/class compound, such as .sensor.moisture. No combinators, attribute or pseudo-selectors.'),title:str(120),body:str(1200),expectedCount:int(1,20).optional()})).min(1).max(12).optional(),
+    hero:z.strictObject({hostSelector:str(160),mediaSelector:str(160),treatment:z.enum(['viewfinder','horizon','slit','corner']).optional(),duration:int(400,2400).optional()}).optional(),
+    appearance:z.strictObject({background:str(7).optional(),text:str(7).optional(),border:str(7).optional(),accent:str(7).optional()}).optional()
+  },applyReferenceDetail],
   ['audit_design','Inspect supplied HTML, CSS and copy for actionable issues. Returns evidence, fixes and scope.',{html:z.string().max(150000).optional(),css:z.string().max(150000).optional(),copy:z.string().max(50000).optional()},auditDesign],
-  ['remix_inspirations','Build from a reference, extract a named detail, generate three side-by-side variations, or combine selected sections with attributable motion.',{ids:z.array(str(500)).min(1).max(5),mode:z.enum(['rebuild','detail','variations','combine']),detail:str(300).optional(),headlineMotion:z.literal('opening-imprint').optional()},remix]
+  ['remix_inspirations','Build from a reference, extract a named detail, compare variations and export a selected version, or combine selected sections with attributable motion.',{ids:z.array(str(500)).min(1).max(5),mode:z.enum(['rebuild','detail','variations','combine']),detail:str(300).optional(),variant:str(100).optional().describe('A variant ID returned by variations mode. Export that one working version.'),headlineMotion:z.literal('opening-imprint').optional()},remix]
 ];
 export function createServer(){
   const server=new McpServer({name:'design-atlas',title:'Design Atlas',version:manifest.version},{
-    instructions:'Search with the actual design problem. Show candidate links and source provenance. Inspect selected references and read instructions.md before rebuilding. Use the existing brand brief and create_brand_kit for an implementation. The library and tools run locally.'
+    instructions:'Search with the actual design problem. Show candidate links and source provenance. Inspect selected references and read instructions.md before rebuilding. For a new brand, use create_brand_kit. For an existing interface, use upgrade_existing_interface: identify the composition worth keeping, select a matching Vault detail, inspect it and adapt only what the request warrants. Use apply_reference_detail to attach the selected hero reveal or supplementary field notes to existing markup. The library and tools run locally.'
   });
   for(const [name,description,shape,handler] of operations){
     server.registerTool(name,{description,inputSchema:z.strictObject(shape),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async args=>{
@@ -91,5 +98,17 @@ export function createServer(){
   }
   server.registerResource('library','atlas://library/index',{mimeType:'application/json',description:'Available design and icon packs and flows.'},uri=>({contents:[{uri:uri.href,mimeType:'application/json',text:JSON.stringify({packs:packs.map(p=>p.id),flows:flows.map(f=>f.id),icons:iconPacks.map(p=>p.id)})}]}));
   server.registerPrompt('design_from_brief',{description:'Use source-grounded references to design for a new brand.',argsSchema:z.object({brief:str(2000)})},({brief})=>({messages:[{role:'user',content:{type:'text',text:'Here is the brand brief: '+brief+'\nFind relevant Atlas studies. Show the choices and their sources. Inspect the selection, generate a brand kit and use audit_design on the adapted result. Record which design decisions changed for this brand.'}}]}));
+  server.registerPrompt('upgrade_existing_interface', {
+    description:'Refine an existing page with an inspected Vault detail while keeping its strongest visual and interactive decisions.',
+    argsSchema:z.object({html:z.string().min(1).max(150000),context:str(4000)})
+  }, ({html,context}) => ({messages:[{role:'user',content:{type:'text',text:[
+    'Refine this existing interface for the following purpose: '+context,
+    'Inspect the supplied markup and, when available, the rendered page at desktop and phone sizes. Describe the strongest composition, imagery, copy and behavior already doing the job. Distinguish observed facts from inferences.',
+    'Identify a concrete opportunity in hierarchy, spacing, typography, imagery, navigation or the feedback after an action. Keep the original treatment wherever it serves the brief. For example, an image-led hero may already be the strongest composition.',
+    'Search the Vault for the specific interaction. Inspect the reference, its source and its working behavior before adapting it. When a motion reference has alternatives, use remix_inspirations in variations mode, compare the treatments, and export the selected variant.',
+    'For a reveal, pass the existing host, media selector and chosen treatment to apply_reference_detail. For a navigation improvement, preserve the destinations and native links. For supplementary contextual text, use apply_reference_detail with existing focusable targets and caller-supplied facts. Choose only the changes this page needs.',
+    'Implement the selected detail using the existing assets and type. Show a matched-viewport before and after and demonstrate keyboard, touch, and reduced motion where relevant. Explain what changed and give the working code.',
+    'Existing markup:',html
+  ].join('\n\n')}}]}));
   return server;
 }

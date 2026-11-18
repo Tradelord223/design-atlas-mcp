@@ -36,7 +36,11 @@ async def main():
         report['initialize'] = decode(response)['result']['serverInfo']
         response = await rpc('tools/list', {}, 2)
         assert response.status_code == 200
-        report['tools'] = len(decode(response)['result']['tools'])
+        tools = decode(response)['result']['tools']
+        assert report['initialize']['version'] == '1.1.0'
+        assert 'apply_reference_detail' in {tool['name'] for tool in tools}
+        assert len(tools) == 19
+        report['tools'] = len(tools)
         response = await rpc('resources/list', {}, 3)
         report['resources'] = len(decode(response)['result']['resources'])
         response = await rpc('prompts/list', {}, 4)
