@@ -1,0 +1,65 @@
+{
+  "documentSha256": "3b8f2843cb6ebb52caf250ee53fdab84b0385bf207a4546698d6ea4e07d5c4e6",
+  "viewport": {
+    "width": 800,
+    "height": 520
+  },
+  "origin": "Rendered Atlas specimen",
+  "poster": {
+    "file": "poster.png",
+    "width": 800,
+    "height": 402,
+    "sha256": "fef7105bae24ccbc501f2cd6660cd6fa3c67151450715e0e670b9813b47f2da2"
+  },
+  "frames": [
+    {
+      "file": "frame-1.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "7b165a604ba19c436c1808ee27b1121c5de52eac6642b003f1f982f3567ac3cc",
+      "milliseconds": 0
+    },
+    {
+      "file": "frame-2.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "5bfd60c206bc7fc043ad95df94ec158115328c1d64ce890addbcac060f358cd2",
+      "milliseconds": 60
+    },
+    {
+      "file": "frame-3.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "392f352bd1a402a4866be01794b7af161ea405ed13ee64ac5c8e2dad79537e14",
+      "milliseconds": 120
+    },
+    {
+      "file": "frame-4.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "86ef5f212ca7be7b6859185bf26282fae9ebe74a8b9fb969065f4b2e74c32e41",
+      "milliseconds": 180
+    },
+    {
+      "file": "frame-5.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "768bf3cb256fb658963ec6550ba6f27045991d2ad86c40d6c897d4de4a7a6ad3",
+      "milliseconds": 240
+    },
+    {
+      "file": "frame-6.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "7a9ff43bb45b1f7646c3e7b2bb2b25ef364830544beb9ca4cf19421e217bd077",
+      "milliseconds": 300
+    },
+    {
+      "file": "frame-7.png",
+      "width": 800,
+      "height": 402,
+      "sha256": "fef7105bae24ccbc501f2cd6660cd6fa3c67151450715e0e670b9813b47f2da2",
+      "milliseconds": 360
+    }
+  ]
+}

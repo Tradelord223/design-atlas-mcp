@@ -1,0 +1,10 @@
+{
+  "name": "Harbor Press",
+  "description": "An independent publisher of field guides to working waterfronts.",
+  "audience": "Ferry riders, harbor pilots, and readers who travel with a notebook.",
+  "packId": "editorial-reference",
+  "accent": "#345d4e",
+  "headline": "Field guides to the working waterfront.",
+  "voice": "Observant, unhurried and specific.",
+  "actionLabel": "Ask about a field guide"
+}

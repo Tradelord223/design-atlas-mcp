@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Turn a brand brief into a sourced design direction, accessible palette, and a working HTML starter. Runs in your browser.">
+  <title>Brand workbench — Design Atlas</title>
+  <link rel="stylesheet" href="./workbench/styles.css">
+  <script type="module" src="./workbench/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#brief">Skip to the brand brief</a>
+  <header class="site-header">
+    <a class="wordmark" href="./">Design Atlas<span aria-hidden="true"> ↗</span></a>
+    <span class="local-note"><span aria-hidden="true">●</span> Runs in your browser</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="kicker">From brief to direction</p><h1 id="page-title">Give your brand<br>a considered start.</h1></div>
+      <p class="intro-copy">A clear palette, a useful reference, and code you can take with you. Tell us what you’re making.</p>
+    </section>
+    <div class="workspace">
+      <section class="brief-panel" id="brief" aria-labelledby="brief-title">
+        <h2 id="brief-title">The brand brief</h2>
+        <details class="identity-import">
+          <summary>Start from an existing brand</summary>
+          <p class="help">Paste page markup or CSS to recover declared colors, typography, and metadata. Everything is read locally.</p>
+          <div class="field"><label for="identity-html">Page HTML <span class="optional">optional</span></label><textarea id="identity-html" rows="3" maxlength="500000" spellcheck="false" placeholder="&lt;title&gt;Your brand&lt;/title&gt;"></textarea></div>
+          <div class="field"><label for="identity-css">Brand CSS <span class="optional">optional</span></label><textarea id="identity-css" rows="3" maxlength="500000" spellcheck="false" placeholder=":root { --accent: #286044; }"></textarea></div>
+          <button class="import-button" id="import-identity" type="button">Read brand identity</button>
+          <p id="import-status" class="help" role="status" aria-live="polite"></p>
+          <details id="import-evidence" hidden><summary>Review imported declarations</summary><ul id="identity-evidence"></ul><ul id="identity-unknowns"></ul></details>
+        </details>
+        <form id="brand-form">
+          <div class="field"><label for="brand-name">Brand name</label><input id="brand-name" name="name" required maxlength="100" value="Morrow" autocomplete="organization"></div>
+          <div class="field"><label for="brand-description">What are you making?</label><textarea id="brand-description" name="description" required maxlength="4000" rows="4" aria-describedby="description-help">A quiet workspace for meeting notes, decisions, and the follow-ups that keep a small team moving.</textarea><p id="description-help" class="help">Describe the product, the task, and what makes it useful.</p></div>
+          <div class="field"><label for="brand-audience">Who is it for?</label><input id="brand-audience" name="audience" maxlength="500" value="Small teams working through complex projects"></div>
+          <div class="field"><label for="brand-headline">Headline <span class="optional">optional</span></label><input id="brand-headline" name="headline" maxlength="200" value="Keep every decision within reach."></div>
+          <div class="field"><label for="brand-pack">Design direction</label><select id="brand-pack" name="packId"><option value="">Choose from the brief</option></select></div>
+          <div class="field"><label for="brand-accent">Brand color <span class="optional">optional</span></label><div class="color-field"><span id="color-swatch" aria-hidden="true"></span><input id="brand-accent" name="accent" placeholder="#286044" pattern="#[0-9a-fA-F]{6}" maxlength="7" spellcheck="false" aria-describedby="accent-help"></div><p class="help" id="accent-help">Use a six-digit hex value, or keep the direction’s color.</p></div>
+          <p id="form-error" class="error" role="alert" hidden></p>
+          <button class="primary" type="submit">Build the kit <span aria-hidden="true">↗</span></button>
+          <p class="privacy">Your brief stays in this page. Nothing is submitted or saved.</p>
+        </form>
+      </section>
+      <section class="result-panel" aria-label="Generated brand kit">
+        <div class="preview-toolbar"><div><p class="kicker">Working preview</p><p id="result-status" class="result-status" role="status" aria-live="polite">Building your first direction…</p></div><div class="viewport-controls" role="group" aria-label="Preview width"><button id="desktop-preview" type="button" aria-pressed="true">Desktop</button><button id="mobile-preview" type="button" aria-pressed="false">Mobile</button></div></div>
+        <div class="preview-canvas" id="preview-canvas"><iframe id="brand-preview" title="Generated brand starter preview" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></div>
+        <noscript><p class="error">Enable JavaScript to generate a brand kit in this browser.</p></noscript>
+        <div class="kit-details" id="kit-details" hidden>
+          <section class="direction" aria-labelledby="direction-title"><div><p class="kicker">Selected direction</p><h2 id="direction-title"></h2></div><p id="direction-summary"></p><ul id="direction-principles"></ul></section>
+          <section class="palette-section" aria-labelledby="palette-title"><div class="section-heading"><h2 id="palette-title">The palette</h2><span id="contrast-status" class="help"></span></div><div id="palette" class="palette"></div></section>
+          <section class="downloads" aria-labelledby="download-title"><h2 id="download-title">Take it into your project</h2><p class="help">The HTML includes the styles and interaction code for the preview. Sample content and contact details are marked for review.</p><div class="download-actions"><button type="button" data-download="html">Download HTML</button><button type="button" data-download="css">CSS</button><button type="button" data-download="tokens">Tokens JSON</button></div></section>
+          <section class="sources" aria-labelledby="sources-title"><h2 id="sources-title">References behind the direction</h2><p class="help">These public references inform the principles. The starter and specimens are original Design Atlas examples.</p><ul id="source-list"></ul></section>
+          <details class="code-details"><summary>Inspect generated HTML</summary><pre tabindex="0"><code id="generated-code"></code></pre></details>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer"><a href="./">Explore the reference library</a><a href="https://github.com/Tradelord223/design-atlas-mcp">Source on GitHub</a></footer>
+</body>
+</html>

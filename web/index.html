@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f4ee">
+  <meta name="description" content="An open design reference library, implementation vault and brand workshop. Browse original specimens, design packs, flows and open icon collections.">
+  <title>Design Atlas — References into real interfaces</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to library</a>
+  <header class="masthead">
+    <a class="wordmark" href="./" aria-label="Design Atlas home"><span class="mark" aria-hidden="true">a.</span> Design Atlas</a>
+    <nav aria-label="Main"><a href="workbench.html">Brand workbench</a><a href="https://github.com/Tradelord223/design-atlas-mcp">GitHub ↗</a><button id="install-open" class="button dark">Connect MCP <span aria-hidden="true">↗</span></button></nav>
+  </header>
+  <main id="main">
+    <section class="intro"><div><h1>Interface studies<br><em>and design packs.</em></h1></div><p class="intro-copy">Try the interactions, inspect their source, or build a kit with your own brand colors and type.</p></section>
+    <div class="library-bar"><nav class="tabs" aria-label="Collections"><button data-view="patterns" aria-current="page">References <span id="pattern-count"></span></button><button data-view="packs">Design packs</button><button data-view="flows">Flows</button><button data-view="icons">Icons</button></nav></div>
+    <section class="controls" aria-label="Filter library"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search references, patterns, ideas…" aria-label="Search library"><kbd aria-hidden="true">/</kbd></label><label class="filter"><span>Filter</span><select id="tag"><option value="">All categories</option></select></label><button id="reset" class="text-button" hidden>Clear filters</button></section>
+    <div class="results-line"><p id="results" aria-live="polite">Loading the library…</p><span id="collection-note"></span></div>
+    <section id="grid" class="grid" aria-label="Library results"></section>
+    <p id="empty" class="empty" hidden>No matches. Try another word or clear your filters.</p>
+    <p id="load-error" class="empty" hidden>The library could not load. <button onclick="location.reload()">Try again</button></p>
+    <footer><a class="wordmark" href="./">Design Atlas</a><p>Authored implementation specimens, informed by shipped work.<br>Source references and asset licenses travel with each entry.</p><a href="https://github.com/Tradelord223/design-atlas-mcp/blob/main/docs/reconstruction.md">Reconstruction evidence ↗</a></footer>
+  </main>
+  <dialog id="detail"><div class="dialog-top"><span id="detail-type" class="eyebrow"></span><button id="detail-close" class="icon-button" aria-label="Close detail">✕</button></div><div id="detail-body"></div></dialog>
+  <dialog id="install"><div class="dialog-top"><span class="eyebrow">Bring the library to your agent</span><button id="install-close" class="icon-button" aria-label="Close installation">✕</button></div><h2>Connect Design Atlas</h2><p>Download the published package and add its local server to your MCP client.</p><a class="button dark" href="https://github.com/Tradelord223/design-atlas-mcp/releases/latest/download/design-atlas-mcp-1.0.0.tgz">Download package ↗</a><pre>npm install -g ./design-atlas-mcp-1.0.0.tgz</pre><p>Use this command in a client that supports local MCP servers.</p><pre>design-atlas-mcp</pre><p>Find client setup instructions, the complete tool list, and the brand workflow in the repository.</p><a class="button outline" href="https://github.com/Tradelord223/design-atlas-mcp#readme">Installation guide ↗</a></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
