@@ -12,6 +12,7 @@ Design Atlas is an open library of working interface studies for designers and c
 
 | To try | Open | What you can do |
 | --- | --- | --- |
+| A before-and-after redesign | [STRATA comparison film](https://tradelord223.github.io/design-atlas-mcp/films/strata/) | See how an existing ChatGPT Site changes when its field readings, icons and interaction are adapted with the MCP. |
 | A working product pattern | [Guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) | Choose a study, interact with it, inspect the source and adapt it to a brand. |
 | A microinteraction | [Ferry ticket](https://tradelord223.github.io/design-atlas-mcp/?id=press-ticket) | Hold a berth, release it, then inspect the seven motion frames and the code behind the transition. |
 | Your own visual identity | [Brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) | Paste existing HTML and CSS or enter a brief. Preview the kit, check color contrast and download the HTML, stylesheet and tokens. |

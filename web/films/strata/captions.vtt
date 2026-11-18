@@ -1,0 +1,70 @@
+WEBVTT
+
+1
+00:00:00.500 --> 00:00:03.580
+Strata already brings field readings into
+a satellite view.
+
+2
+00:00:05.450 --> 00:00:07.170
+The headline and readings remain.
+
+3
+00:00:07.830 --> 00:00:11.550
+Moisture, vegetation, and canopy now share
+one control.
+
+4
+00:00:13.450 --> 00:00:15.510
+Design Atlas supplies the references,
+
+5
+00:00:15.810 --> 00:00:17.550
+source evidence, and design tokens.
+
+6
+00:00:17.970 --> 00:00:20.990
+The direction is documented before it is
+applied.
+
+7
+00:00:22.500 --> 00:00:25.560
+Choose moisture, vegetation, or canopy
+temperature.
+
+8
+00:00:25.960 --> 00:00:29.260
+Open the reading context, then move
+through the same four sections.
+
+9
+00:00:33.450 --> 00:00:35.490
+The original moisture, vegetation,
+
+10
+00:00:35.890 --> 00:00:37.850
+and temperature values stay intact.
+
+11
+00:00:38.310 --> 00:00:42.590
+A visible snapshot label keeps their
+illustrative status in view.
+
+12
+00:00:43.400 --> 00:00:47.260
+The implementation includes reusable
+components, brand tokens,
+
+13
+00:00:47.400 --> 00:00:50.860
+and the actual icon files, ready to carry
+into a project.
+
+14
+00:00:52.400 --> 00:00:53.680
+This is still Strata.
+
+15
+00:00:54.400 --> 00:00:58.620
+Its field controls, tokens, and icons can
+travel to the next page.

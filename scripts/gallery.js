@@ -14,6 +14,7 @@ await mkdir(output, { recursive: true });
 for (const name of ['index.html', 'app.js', 'style.css', 'social.png']) {
   await cp(path.join(root, 'web', name), path.join(output, name));
 }
+await cp(path.join(root, 'web/films'), path.join(output, 'films'), { recursive: true });
 await cp(path.join(root, 'assets/previews'), path.join(output, 'previews'), { recursive: true });
 await cp(path.join(root, 'assets/icons'), path.join(output, 'icons'), { recursive: true });
 const { version: packageVersion } = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
