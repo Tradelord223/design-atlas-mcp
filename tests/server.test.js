@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
@@ -104,6 +105,13 @@ async function checkTransport(transport){
     assert.match(brandSource.text,/doctype/i);
     const kit=(await request('create_brand_kit',{name:'North Break',description:'A journal of working harbors',packId:'editorial-reference',output:'full'})).structuredContent;
     assert.match(kit.html,/North Break/);assert.ok(kit.implementation.files.some(f=>f.path==='tokens.json'));
+    const inventory=(await request('inspect_edition_source',{pageUrl:'https://example.org/',html:'<main><h1>Season studies</h1><img src="/cover.jpg" alt="Aerial farmland"></main>'})).structuredContent;
+    assert.equal(inventory.photos[0].src,'https://example.org/cover.jpg');
+    const editionBrief=JSON.parse(await readFile(new URL('../examples/strata-edition.json',import.meta.url),'utf8'));
+    const edition=(await request('create_image_atlas',editionBrief)).structuredContent;
+    assert.equal(edition.filename,'strata-atlas.html');
+    assert.ok(edition.html.includes(editionBrief.image.src));
+    assert.ok(edition.html.includes(editionBrief.readings[2].value));
     const existingHtml=' \n<button class="existing-reading" type="button">Water</button>\n ';
     const contextual=(await request('apply_reference_detail',{referenceId:'anchored-field-note',html:existingHtml,notes:[{selector:'.existing-reading',title:'Water record',body:'Caller-supplied record context.'}]})).structuredContent;
     assert.equal(contextual.html,existingHtml);

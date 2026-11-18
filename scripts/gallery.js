@@ -7,6 +7,7 @@ import { motionVariations } from '../src/motion-variations.js';
 import { iconPacks, searchIcons } from '../src/icons.js';
 import { buildWorkbench } from './workbench.js';
 import { buildLiveDemo } from './live-demo.js';
+import { buildEditions } from './editions.js';
 import { buildTry } from './try.js';
 import { hostedMcpUrl } from '../src/hosting.js';
 
@@ -61,4 +62,5 @@ await writeFile(path.join(output, '.nojekyll'), '');
 await buildWorkbench(output);
 await buildLiveDemo(output);
 await buildTry(output);
+await buildEditions(output);
 console.log(`Built ${patterns.length} references, ${packs.length} packs, ${flows.length} flows and ${data.icons.length} icons in ${output}`);

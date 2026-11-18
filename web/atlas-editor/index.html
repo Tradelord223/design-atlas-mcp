@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3eb">
+  <meta name="description" content="Make an image-led edition with your own photographs, annotations and chapters. Download a working page.">
+  <title>Edition editor — Design Atlas</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#editor-form">Skip to content fields</a>
+  <header class="masthead">
+    <a class="wordmark" href="../">Design Atlas</a>
+    <span class="page-name">Edition editor</span>
+    <button type="button" id="download-html" class="button primary" disabled>Download page <span aria-hidden="true">↓</span></button>
+  </header>
+  <main class="workspace">
+    <section class="editor" aria-label="Edition content">
+      <div class="editor-heading"><h1>Make it your edition.</h1><p>Edit the content, try the controls, and download a working HTML page.</p></div>
+      <div class="example-picker"><label for="example">Start from</label><select id="example" disabled><option value="strata">STRATA</option><option value="lunar">Lunar Archive</option></select></div>
+      <p id="load-state" class="feedback" role="status">Loading the editor…</p>
+      <form id="editor-form" novalidate></form>
+      <div class="brief-actions"><button type="button" id="download-brief" class="text-button" disabled>Save editable brief</button><button type="button" id="reset-example" class="text-button" disabled>Reset this example</button></div>
+      <p class="privacy-note">Content is edited in your browser. Photographs load from the image addresses you provide.</p>
+    </section>
+    <section class="preview-panel" aria-label="Working preview">
+      <div class="preview-toolbar"><div class="preview-label"><span class="live-dot" aria-hidden="true"></span><strong>Working preview</strong></div><div class="viewport-buttons" aria-label="Preview width"><button type="button" data-size="desktop" aria-pressed="true">Desktop</button><button type="button" data-size="phone" aria-pressed="false">Phone</button></div></div>
+      <div id="preview-error" class="preview-error" role="alert" hidden></div>
+      <div id="preview-stage" class="preview-stage"><iframe id="preview" title="Your edition, working preview" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe><div id="preview-empty" class="preview-empty"><p>Your edition will appear here.</p></div></div>
+      <div class="preview-footer"><p id="preview-status" role="status">A complete page with interactive annotations and chapter navigation.</p><a id="source-link" href="https://www.nasa.gov/mission/apollo-11/" target="_blank" rel="noopener noreferrer" hidden>View image source ↗</a></div>
+    </section>
+  </main>
+</body>
+</html>

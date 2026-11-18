@@ -28,8 +28,8 @@ Eligible free personal accounts can create a Gradio **ZeroGPU** Space for screen
 
 ## Release identity
 
-The app downloads the public `design-atlas-mcp-1.1.0.tgz` release, verifies SHA-256
-`65117135c2a6a2d81c98a651044e655f2d587afcb15393ed79549b240bce7445`, then installs the verified local archive with npm scripts disabled.
+The app downloads the public `design-atlas-mcp-1.2.0.tgz` release, verifies SHA-256
+`5b37c9dff422b24da91817decae20e0a69167acf510236df34beb0300e0d0402`, then installs the verified local archive with npm scripts disabled.
 Node is supplied by `nodejs-wheel==24.13.0` and its exact binary-wheel dependency.
 The newer 24.22.1 wheel metadata currently depends on an unavailable binaries release, so this adapter pins the installable 24.13.0 version.
 
@@ -58,7 +58,7 @@ Run `python app.py` in the installed environment.
 Use `/healthz` to inspect MCP and model readiness.
 Run `python smoke.py` for isolated Node/ASGI relay checks.
 
-Local CPU testing verified MCP discovery, all 19 advertised tools, exact PNG transfer, positive and negative Origin checks, and the official v2 client’s protocol headers. Hosted routing and GPU-backed inference require verification on the provisioned Space.
+Local CPU testing verified MCP discovery, all 21 advertised tools, exact PNG transfer, positive and negative Origin checks, and the official v2 client’s protocol headers. Hosted routing and GPU-backed inference require verification on the provisioned Space.
 
 ## Primary references
 
@@ -67,4 +67,4 @@ Local CPU testing verified MCP discovery, all 19 advertised tools, exact PNG tra
 - [Gradio mount_gradio_app source, version 6.32.0](https://github.com/gradio-app/gradio/blob/gradio%406.32.0/gradio/routes.py)
 - [LAION CLIP model and MIT license metadata](https://huggingface.co/laion/CLIP-ViT-B-32-laion2B-s34B-b79K)
 - [Node wheel maintainer’s package and supported platforms](https://pypi.org/project/nodejs-wheel/24.13.0/)
-- [Design Atlas pinned release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.1.0)
+- [Design Atlas pinned release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.2.0)

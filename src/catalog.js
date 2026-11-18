@@ -14,7 +14,18 @@ const editorialWayfinding = {
   principles:['Let the existing photograph and headline set the composition.', 'Give each destination its own preview. Keep navigation usable by keyboard and touch.', 'Apply movement to one bounded element and restore its resting state.'],
   tokens:{background:'#f6f0e6',text:'#261e19',accent:'#88432b',surface:'#fffaf1',headingFont:'Georgia, serif'}
 };
-export const packs = [...libraryPacks,motionPack,fieldNotePack,editorialWayfinding,...extensionPacks];
+const imageLedEditions = {
+  id:'image-led-editions', title:'Image-led editions',
+  summary:'Turn one cover photograph into an interactive index, with numbered readings and a photographic chapter sequence.',
+  tags:['editorial','photography','publication','image atlas','annotated image','interactive map','whole site'],
+  patterns:[plateIndexPattern.id,'reading-tide',fieldNotePattern.id],
+  principles:['Choose a cover with enough detail to support several points of interest.',
+    'Keep a reading list beside the image so that every point can also be reached by text and keyboard.',
+    'Let chapter selections replace both the photograph and its interpretation. Credit the source and date field observations.'],
+  tokens:{background:'#f4f3ec',text:'#121812',accent:'#3d532a',surface:'#ffffff',headingFont:'system-ui, sans-serif'},
+  composer:{tool:'create_image_atlas',editor:'https://tradelord223.github.io/design-atlas-mcp/atlas-editor/',example:'https://tradelord223.github.io/design-atlas-mcp/editions/strata/'}
+};
+export const packs = [...libraryPacks,motionPack,fieldNotePack,editorialWayfinding,imageLedEditions,...extensionPacks];
 export const flows=[...libraryFlows,...extensionFlows];
 export const gallery = 'https://tradelord223.github.io/design-atlas-mcp/';
 export const patternUrl = id => gallery+'?id='+encodeURIComponent(id);

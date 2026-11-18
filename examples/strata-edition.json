@@ -1,0 +1,78 @@
+{
+  "brand": "STRATA",
+  "edition": "Agrisystems / Field Atlas",
+  "headline": "We grow the numbers behind the harvest.",
+  "deck": "A field seen from three distances. Read the signals from orbit, follow the water, and move in close enough to see a single leaf.",
+  "date": "27 August 2024 · Illustrative field snapshot",
+  "accent": "#E3F15A",
+  "image": {
+    "src": "https://strata-agrisystems.raqmanplentiful.chatgpt.site/images/satellite.jpg",
+    "alt": "Circular irrigated fields and cloud shadows seen from above."
+  },
+  "readings": [
+    {
+      "id": "moisture",
+      "label": "Soil moisture",
+      "value": "34.2%",
+      "x": 55,
+      "y": 45,
+      "title": "Beneath the surface",
+      "body": "Moisture is one part of this field’s story. Soil texture, sensor depth and the stage of the crop give the reading its meaning.",
+      "icon": "droplets"
+    },
+    {
+      "id": "ndvi",
+      "label": "NDVI",
+      "value": "0.71",
+      "x": 73,
+      "y": 23,
+      "title": "Across the field",
+      "body": "Vegetation reflects red and near-infrared light differently. NDVI compares the two. A change across the field gives a grower somewhere to look more closely.",
+      "icon": "leaf"
+    },
+    {
+      "id": "canopy",
+      "label": "Canopy temperature",
+      "value": "27.8°C",
+      "x": 88,
+      "y": 65,
+      "title": "Within the canopy",
+      "body": "Leaves experience a microclimate of their own. Canopy temperature adds context when read alongside soil moisture and conditions on the ground.",
+      "icon": "thermometer"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ground",
+      "kicker": "Operations",
+      "title": "From orbit to earth.",
+      "body": "At ground level, circles on the satellite image become rows of crops and the reach of an irrigation arm. Field observations give the view from above its context.",
+      "image": {
+        "src": "https://strata-agrisystems.raqmanplentiful.chatgpt.site/images/field.jpg",
+        "alt": "A center-pivot irrigation arm crosses green crop rows in front of distant mountains."
+      }
+    },
+    {
+      "id": "leaf",
+      "kicker": "Genetics",
+      "title": "Small beginnings.",
+      "body": "Light catches the edge of a young leaf. What a plant can become starts with its genetics. Soil, weather and the growing season shape how that potential appears in the field.",
+      "image": {
+        "src": "https://strata-agrisystems.raqmanplentiful.chatgpt.site/images/leaf-detail.jpg",
+        "alt": "Beads of water sit on a softly backlit green leaf."
+      }
+    },
+    {
+      "id": "orbit",
+      "kicker": "Climate",
+      "title": "The shape of a season.",
+      "body": "From above, a field becomes part of a larger pattern. Reading water, vegetation and temperature together gives a single observation a place in the season.",
+      "image": {
+        "src": "https://strata-agrisystems.raqmanplentiful.chatgpt.site/images/satellite.jpg",
+        "alt": "Clouds drift across contrasting circular farms in a dry landscape."
+      }
+    }
+  ],
+  "sourceUrl": "https://strata-agrisystems.raqmanplentiful.chatgpt.site/",
+  "sourceLabel": "Original STRATA site"
+}

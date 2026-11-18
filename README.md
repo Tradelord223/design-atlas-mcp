@@ -2,11 +2,21 @@
 
 Design Atlas is an open library of working interface studies for designers and coding agents. Search a reference, try the interaction, inspect its HTML and CSS, and turn it into a kit for your brand.
 
-**[Test it on STRATA](https://tradelord223.github.io/design-atlas-mcp/field-study/) · [Try the guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) · [Browse 40 studies](https://tradelord223.github.io/design-atlas-mcp/) · [Open the brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Get the MCP release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.1.0)**
+**[Open the STRATA field atlas](https://tradelord223.github.io/design-atlas-mcp/editions/strata/) · [Make your own edition](https://tradelord223.github.io/design-atlas-mcp/atlas-editor/) · [Try the guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) · [Browse 40 studies](https://tradelord223.github.io/design-atlas-mcp/) · [Open the brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Get the MCP release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.2.0)**
 
-| A quiet product introduction | Working issue queue | An editorial motion study |
-| --- | --- | --- |
-| [![Quiet product introduction](assets/previews/calm-product-hero/poster.png)](https://tradelord223.github.io/design-atlas-mcp/?id=calm-product-hero) | [![Issue queue](assets/previews/issue-list/poster.png)](https://tradelord223.github.io/design-atlas-mcp/?id=issue-list) | [![Tidal Almanac headline](assets/previews/opening-imprint/poster.png)](https://tradelord223.github.io/design-atlas-mcp/?id=opening-imprint) |
+| Original STRATA | STRATA Field Atlas |
+| --- | --- |
+| [![Original STRATA aerial hero and sensor overlays](https://tradelord223.github.io/design-atlas-mcp/editions/strata/film/original-cover.jpg)](https://strata-agrisystems.raqmanplentiful.chatgpt.site/) | [![New STRATA field atlas cover and reading index](https://tradelord223.github.io/design-atlas-mcp/editions/strata/film/edition-cover.jpg)](https://tradelord223.github.io/design-atlas-mcp/editions/strata/) |
+
+[Watch the before-and-after film](https://tradelord223.github.io/design-atlas-mcp/editions/strata/film/).
+
+## Make an image-led website
+
+[Explore STRATA](https://tradelord223.github.io/design-atlas-mcp/editions/strata/) to select a reading on the map and turn through photographic chapters. [Open Lunar Archive](https://tradelord223.github.io/design-atlas-mcp/editions/lunar/) to see the same generator publish a different subject and visual identity. GitHub Pages serves the HTML returned by the public package’s MCP tool.
+
+[Open the edition editor](https://tradelord223.github.io/design-atlas-mcp/atlas-editor/) to change the headline, type, colors, photos, map points, reading icons and chapters. Download the resulting HTML and open it in a browser. The page includes its own layout and interactions. Use an existing image URL or select a photo on your computer. Locally selected photos are embedded in the downloaded page.
+
+From an agent, use `inspect_edition_source` on supplied HTML and its original URL to identify actual assets, copy and destinations. Choose the information that belongs in the edition, then call `create_image_atlas`. From a checkout, run `node src/cli.js edition examples/strata-edition.json my-edition.html`. The [edition guide](docs/image-led-editions.md) describes the content model and visual references.
 
 ## Use it today
 
@@ -37,12 +47,12 @@ Agents can call `remix_inspirations` with `{"ids":["aperture-hero-reveal"],"mode
 **Install the MCP once.** Download the release tarball into the current directory, then install that local file with Node.js 22.16 or newer. This works with npm 12’s default remote-package policy.
 
 ```sh
-curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.1.0/design-atlas-mcp-1.1.0.tgz
-npm install -g ./design-atlas-mcp-1.1.0.tgz
+curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.2.0/design-atlas-mcp-1.2.0.tgz
+npm install -g ./design-atlas-mcp-1.2.0.tgz
 design-atlas-mcp info
 ```
 
-You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.1.0/design-atlas-mcp-1.1.0.tgz). The release includes SHA256SUMS.
+You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.2.0/design-atlas-mcp-1.2.0.tgz). The release includes SHA256SUMS.
 
 **In Codex**, register the installed executable and open a fresh chat.
 
@@ -77,10 +87,10 @@ For a GUI client with a restricted PATH, use `node` as the command and the absol
 
 For an existing product, paste its HTML and CSS into the workbench or use `import_brand_identity`. Review the identified colors, type, corner radii and the declarations they came from. Give the agent a specific component and its source. Ask it to preserve the brand typography and the component’s important states, compare two Atlas treatments, and apply the selected change. A screenshot or source link accompanies each study. Atlas previews show original implementations. A source link identifies the product or design-system example behind the study.
 
-## Included in v1.1.0
+## Included in v1.2.0
 
 - **40 studies** covering landing pages, notes, command menus, issue triage, forms, commerce, editorial layouts, financial dashboards, mobile onboarding, studios and motion. Each includes source attribution, an implementation and a versioned evidence bundle.
-- **Eleven design packs** with design decisions and tokens. Choose Quiet Product, Precise Workspace, Public Service, Material Commerce, Editorial Reference, Financial Clarity, Daily Companion, Independent Studio, Motion Printshop, Contextual Controls or Editorial Wayfinding. The gallery shows the studies in each direction.
+- **Twelve design packs** with design decisions and tokens. Choose Quiet Product, Precise Workspace, Public Service, Material Commerce, Editorial Reference, Financial Clarity, Daily Companion, Independent Studio, Motion Printshop, Contextual Controls, Editorial Wayfinding or Image-led Editions. The gallery shows the studies in each direction.
 - **Eight product flows** with ordered steps, a pattern for each step, its goal and a failure or recovery consideration.
 - **4,805 offline SVGs** across Lucide (2,403), Bootstrap Icons (2,078) and Heroicons 24px outline (324). Search by name and get an actual SVG with its license.
 - **A brand workbench and source audit.** Generate responsive HTML, CSS, tokens and reusable components. Review copy, labels, document semantics, keyboard focus and motion rules. Palette checks report measured ratios. Static audits identify what still needs a rendered review.
@@ -97,6 +107,7 @@ For an existing product, paste its HTML and CSS into the workbench or use `impor
 | Use icons | `list_icon_packs`, `search_icons`, `get_icon` | Installed families, paginated names, copyable SVG and attribution. |
 | Design for a brand | `import_brand_identity`, `create_brand_kit`, `audit_design` | Evidence from supplied brand markup and CSS, brand-specific output, and issues with concrete fixes. |
 | Adapt a reference | `remix_inspirations`, `apply_reference_detail` | A standalone rebuild, isolated detail, variation or composition proof. Targeted integrations attach a hero reveal or field notes to existing HTML. |
+| Build an image-led website | `inspect_edition_source`, `create_image_atlas` | Source-backed content inventory and a standalone HTML edition with photo chapters and interactive landmarks. |
 | Open a source library | `get_reference_guide` | Official links and client instructions for Details, Mobbin, Granola, Linear and six other design sources. A pasted Details link receives the matching official tool handoff. |
 
 The server also exposes `atlas://library/index` as an MCP resource and the reusable prompts `design_from_brief` and `upgrade_existing_interface`.

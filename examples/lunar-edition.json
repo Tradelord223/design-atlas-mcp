@@ -1,0 +1,83 @@
+{
+  "brand": "Lunar Archive",
+  "edition": "Apollo 11 / a photographic record",
+  "headline": "A distant world.\nA familiar one.",
+  "deck": "An independent edition tracing Apollo 11 through NASA’s mission photographs, from the lunar horizon to the ground beneath an astronaut’s boots.",
+  "date": "July 1969",
+  "image": {
+    "src": "https://images-assets.nasa.gov/image/as11-44-6552/as11-44-6552~large.jpg",
+    "alt": "Earth above the grey lunar horizon, photographed from the Apollo 11 spacecraft. NASA frame AS11-44-6552."
+  },
+  "accent": "#d9a96f",
+  "readings": [
+    {
+      "id": "earthrise",
+      "label": "Earthrise",
+      "value": "AS11-44-6552",
+      "title": "The view back home",
+      "body": "This Apollo 11 photograph shows Earth rising over the lunar horizon near Smyth’s Sea. NASA dates the frame to the mission of 16–24 July 1969. Photograph credit: NASA.",
+      "x": 50,
+      "y": 37,
+      "icon": "orbit"
+    },
+    {
+      "id": "lunar-limb",
+      "label": "Lunar limb",
+      "value": "Smyth’s Sea",
+      "title": "Terrain at the horizon",
+      "body": "NASA identifies the lunar terrain in this frame as the area of Smyth’s Sea on the Moon’s near side. The marker is an editorial annotation of the photograph.",
+      "x": 72,
+      "y": 76,
+      "icon": "mountain"
+    },
+    {
+      "id": "mission",
+      "label": "Mission",
+      "value": "Apollo 11",
+      "title": "A mission in three places",
+      "body": "Apollo 11 launched on 16 July 1969 and returned to Earth on 24 July. Neil Armstrong and Buzz Aldrin explored the lunar surface while Michael Collins remained in lunar orbit aboard Columbia.",
+      "x": 22,
+      "y": 58,
+      "icon": "compass"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "homeward-view",
+      "kicker": "Lunar orbit / July 1969",
+      "title": "The view back home",
+      "body": "A small Earth hangs beyond the lunar horizon in NASA frame AS11-44-6552. This view was made from the Apollo 11 spacecraft during its July 1969 mission. NASA’s catalog describes the terrain below as the area of Smyth’s Sea. Photograph credit: NASA.",
+      "image": {
+        "src": "https://images-assets.nasa.gov/image/as11-44-6552/as11-44-6552~large.jpg",
+        "alt": "Earth rising above the Moon’s horizon in Apollo 11 frame AS11-44-6552."
+      }
+    },
+    {
+      "id": "surface-record",
+      "kicker": "Sea of Tranquility / 20 July 1969",
+      "title": "A person in the landscape",
+      "body": "Neil Armstrong photographed Buzz Aldrin near the lunar module Eagle during Apollo 11’s surface activity on 20 July 1969. The photograph was made with a 70 mm lunar surface camera and is cataloged as AS11-40-5903. Photograph credit: NASA / Neil Armstrong.",
+      "image": {
+        "src": "https://images-assets.nasa.gov/image/as11-40-5903/as11-40-5903~large.jpg",
+        "alt": "Buzz Aldrin standing on the lunar surface near Eagle, photographed by Neil Armstrong. NASA frame AS11-40-5903."
+      }
+    },
+    {
+      "id": "surface-trace",
+      "kicker": "Lunar surface / 20 July 1969",
+      "title": "The ground remembers",
+      "body": "NASA frame AS11-40-5877 records an astronaut’s bootprint in lunar soil during Apollo 11’s surface activity on 20 July 1969. The close view gives the mission a different scale, from the distant horizon to the texture underfoot. Photograph credit: NASA.",
+      "image": {
+        "src": "https://images-assets.nasa.gov/image/as11-40-5877/as11-40-5877~large.jpg",
+        "alt": "A sharply defined astronaut bootprint pressed into grey lunar soil. NASA frame AS11-40-5877."
+      }
+    }
+  ],
+  "sourceUrl": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/images11.html",
+  "sourceLabel": "NASA / Apollo 11 Image Library · mission photographs. Independent editorial edition.",
+  "theme": {
+    "paper": "#F1F0F6",
+    "ink": "#181A33",
+    "display": "serif"
+  }
+}

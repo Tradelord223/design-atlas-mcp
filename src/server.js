@@ -8,6 +8,9 @@ import {importBrandIdentity} from './identity.js';
 import {referenceGuide} from './public-details.js';
 import { remix } from './remix.js';
 import { buildBrandKit, auditDesign } from './brand.js';
+import { createImageAtlas } from './image-atlas.js';
+import { inspectEditionSource } from './edition-source.js';
+import { editionShape } from './edition-schema.js';
 import { applyReferenceDetail } from './reference-detail.js';
 import { iconPacks, searchIcons, getIcon } from './icons.js';
 
@@ -73,6 +76,8 @@ export const operations=[
     return {brand:kit.brand,selectedPack:kit.selectedPack,tokens:kit.tokens,accessibility:kit.accessibility,sources:kit.sources,
       files:files.map(f=>({path:f.path,bytes:Buffer.byteLength(f.content)})),steps:kit.implementation.steps};
   }],
+  ['inspect_edition_source','Inventory the actual images, headings, copy, buttons and destinations in caller-supplied HTML before designing a whole-page edition. Returns source line/column evidence. The server performs no network requests.',{html:z.string().min(1).max(400000),pageUrl:str(2048)},inspectEditionSource],
+  ['create_image_atlas','Build a complete branded, image-led website. Uses the submitted headline, cover photo, spatial readings, chapter images and source credit. Returns one deployable HTML file with its own responsive layout and keyboard-accessible interactions. Use inspect_edition_source to inventory an existing site first.',editionShape,createImageAtlas],
   ['apply_reference_detail','Apply an inspected reference to supplied existing HTML. For aperture-hero-reveal pass hero with a host selector, existing media selector and selected treatment. For anchored-field-note pass notes with source text and existing focusable targets. Returns original markup, matched selectors and runnable integration files.',{
     referenceId:z.enum(['anchored-field-note','aperture-hero-reveal']),referenceVersion:str(100).optional(),html:z.string().min(1).max(150000),
     notes:z.array(z.strictObject({selector:str(160).describe('One tag/ID/class compound, such as .sensor.moisture. No combinators, attribute or pseudo-selectors.'),title:str(120),body:str(1200),expectedCount:int(1,20).optional()})).min(1).max(12).optional(),
@@ -84,7 +89,7 @@ export const operations=[
 ];
 export function createServer(){
   const server=new McpServer({name:'design-atlas',title:'Design Atlas',version:manifest.version},{
-    instructions:'Search with the actual design problem. Show candidate links and source provenance. Inspect selected references and read instructions.md before rebuilding. For a new brand, use create_brand_kit. For an existing interface, use upgrade_existing_interface: identify the composition worth keeping, select a matching Vault detail, inspect it and adapt only what the request warrants. Use apply_reference_detail to attach the selected hero reveal or supplementary field notes to existing markup. The library and tools run locally.'
+    instructions:'Search with the actual design problem. Show candidate links and source provenance. Inspect selected references and read instructions.md before rebuilding. For a complete image-led website, inventory the source with inspect_edition_source, then call create_image_atlas with the selected assets and copy. For a general brand kit, use create_brand_kit. For an existing interface, use upgrade_existing_interface: identify the composition worth keeping, select a matching Vault detail, inspect it and adapt only what the request warrants. Use apply_reference_detail to attach the selected hero reveal or supplementary field notes to existing markup. The library and tools run locally.'
   });
   for(const [name,description,shape,handler] of operations){
     server.registerTool(name,{description,inputSchema:z.strictObject(shape),annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false}},async args=>{
@@ -104,6 +109,7 @@ export function createServer(){
   }, ({html,context}) => ({messages:[{role:'user',content:{type:'text',text:[
     'Refine this existing interface for the following purpose: '+context,
     'Inspect the supplied markup and, when available, the rendered page at desktop and phone sizes. Describe the strongest composition, imagery, copy and behavior already doing the job. Distinguish observed facts from inferences.',
+    'When the brief calls for a whole new edition, use inspect_edition_source on the supplied HTML and its source URL. For an image-led publication, choose a cover, annotated points and photographic chapters; use create_image_atlas and test its exported document. Use the author’s values and credit the images.',
     'Identify a concrete opportunity in hierarchy, spacing, typography, imagery, navigation or the feedback after an action. Keep the original treatment wherever it serves the brief. For example, an image-led hero may already be the strongest composition.',
     'Search the Vault for the specific interaction. Inspect the reference, its source and its working behavior before adapting it. When a motion reference has alternatives, use remix_inspirations in variations mode, compare the treatments, and export the selected variant.',
     'For a reveal, pass the existing host, media selector and chosen treatment to apply_reference_detail. For a navigation improvement, preserve the destinations and native links. For supplementary contextual text, use apply_reference_detail with existing focusable targets and caller-supplied facts. Choose only the changes this page needs.',

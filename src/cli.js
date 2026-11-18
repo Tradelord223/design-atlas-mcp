@@ -6,6 +6,7 @@ import {parseArgs} from 'node:util';
 import {serveStdio} from '@modelcontextprotocol/server/stdio';
 import {createServer} from './server.js';
 import {startHttp} from './http.js';
+import {createImageAtlas} from './image-atlas.js';
 import {buildBrandKit} from './brand.js';
 import {packs,patterns,flows} from './catalog.js';
 import {iconPacks} from './icons.js';
@@ -15,6 +16,8 @@ const help=`Design Atlas MCP ${manifest.version}
   design-atlas-mcp http [--port N]  Start Streamable HTTP at 127.0.0.1:8787/mcp
   design-atlas-mcp kit brief.json output-directory
                                     Export a brand kit to a new directory
+  design-atlas-mcp edition brief.json edition.html
+                                    Export an interactive, image-led website
   design-atlas-mcp info             Show library counts
   design-atlas-mcp --help           Show this help`;
 async function run(){
@@ -32,6 +35,14 @@ async function run(){
     const server=startHttp({port,host:process.env.ATLAS_HOST,publicOrigin:process.env.ATLAS_PUBLIC_ORIGIN});
     server.on('listening',()=>console.error('Design Atlas listening on port '+server.address().port+' at /mcp'));
     server.on('error',err=>{console.error(err.message);process.exitCode=1});
+    return;
+  }
+  if(cmd==='edition'){
+    if(args.length!==2) throw new Error('Usage: design-atlas-mcp edition brief.json new-page.html');
+    const brief=JSON.parse(await readFile(args[0],'utf8'));
+    const {html}=createImageAtlas(brief);
+    await writeFile(resolve(args[1]),html,{flag:'wx'});
+    console.log('Created '+basename(args[1]));
     return;
   }
   if(cmd==='kit'){

@@ -287,6 +287,9 @@ function openPattern(pattern, body) {
 function openPack(pack, body) {
   body.append(element('h2', '', pack.title), element('p', '', pack.summary));
   const actions = element('div', 'detail-actions');
+  if (pack.composer?.tool === 'create_image_atlas') {
+    actions.append(link('Open the edition editor ↗', pack.composer.editor), link('Explore STRATA ↗', pack.composer.example));
+  }
   actions.append(button('Copy tokens', () => copy(JSON.stringify(pack.tokens, null, 2)), 'button dark'), button('Download pack ↓', () => download(JSON.stringify(pack, null, 2), `${pack.id}.json`, 'application/json'), 'button outline'));
   body.append(actions);
   addList(body, 'Design principles', pack.principles);
@@ -380,6 +383,16 @@ const featuredHints = {
 function selectFeatured() {
   if (!catalog) return;
   const id = $('#featured-select').value;
+  const edition = id === 'strata-edition';
+  $('#featured-edition').hidden = !edition;
+  $('#featured-film').hidden = !edition;
+  $('#featured-preview').hidden = edition;
+  $('#featured-inspect').hidden = edition;
+  if (edition) {
+    $('#featured-preview').removeAttribute('srcdoc');
+    $('#featured-hint').textContent = 'Explore the map and its photographic chapters.';
+    return;
+  }
   const pattern = catalog.patterns.find(item => item.id === id);
   if (!pattern) return;
   $('#featured-preview').srcdoc = embeddedPreview(pattern.document);

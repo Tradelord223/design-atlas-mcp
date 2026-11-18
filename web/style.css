@@ -13,3 +13,5 @@
 .variation-controls label { font-size:.85rem; font-weight:600; }
 .variation-controls select { justify-self:start; max-width:100%; background:var(--paper,#f6f4ee); color:inherit; font:inherit; padding:.4rem .65rem; border:1px solid #8f998a; border-radius:4px; }
 .variation-note { grid-column:1 / -1; font-size:.86rem; margin:0; }
+
+.featured [hidden]{display:none!important}.edition-cover{display:block;background:#10150f}.edition-cover img{display:block;width:100%;height:auto;max-height:420px;object-fit:cover;object-position:top}.featured-footer #featured-film{color:#304f38;text-underline-offset:3px}
