@@ -12,35 +12,42 @@ Design Atlas gives a coding agent a design library it can **see, inspect and imp
 
 **In a browser.** Open the [brand workbench](https://tradelord223.github.io/design-atlas-mcp/workbench.html), enter your brand and audience, then preview the result and download HTML, CSS and design tokens. The workbench processes your brief in your browser.
 
-**In Codex.** With Node.js 22.16 or newer installed, run the command below and open a fresh chat.
+**Install the MCP once.** Download the release tarball into the current directory, then install that local file with Node.js 22.16 or newer. This works with npm 12’s default remote-package policy.
 
 ```sh
-codex mcp add design-atlas -- npx -y https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz
+curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz
+npm install -g ./design-atlas-mcp-1.0.0.tgz
+design-atlas-mcp info
 ```
 
-**In Claude Code.**
+You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz). The release includes SHA256SUMS.
+
+**In Codex**, register the installed executable and open a fresh chat.
 
 ```sh
-claude mcp add --transport stdio design-atlas -- npx -y https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz
+codex mcp add design-atlas -- design-atlas-mcp
 ```
 
-**In Cursor or Claude Desktop**, add the following server to the client's MCP configuration. On Windows, use `npx.cmd` when your client requires the executable extension.
+**In Claude Code**, register the same executable.
+
+```sh
+claude mcp add --transport stdio design-atlas -- design-atlas-mcp
+```
+
+**In Cursor or Claude Desktop**, add this entry to the client’s MCP configuration.
 
 ```json
 {
   "mcpServers": {
     "design-atlas": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz"
-      ]
+      "command": "design-atlas-mcp",
+      "args": []
     }
   }
 }
 ```
 
-The first launch downloads the public package and its npm dependencies. For a permanent local installation, install the release tarball with `npm install -g` and set your client's command to `design-atlas-mcp`. All core MCP tools operate offline after installation.
+For a GUI client with a restricted PATH, use `node` as the command and the absolute path to `design-atlas-mcp/src/cli.js` inside the directory printed by `npm root -g` as its only argument. The first installation downloads dependencies. All core MCP tools operate offline afterward.
 
 ## Try a design brief
 
