@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Try Design Atlas with live interface specimens, source evidence, and a brand adaptation you can download.">
+  <title>Try Design Atlas — From reference to your brand</title>
+  <link rel="stylesheet" href="./try/styles.css">
+  <link rel="stylesheet" href="./live-demo.css">
+  <script type="module" src="./try/app.js"></script>
+  <script type="module" src="./live-demo.js"></script>
+</head>
+<body>
+  <a class="skip" href="#reference-search">Skip to the walkthrough</a>
+  <header class="masthead"><a class="wordmark" href="./">Design Atlas <span aria-hidden="true">↗</span></a><nav aria-label="Main"><a href="./">Reference library</a><a href="./workbench.html">Brand workbench</a></nav></header>
+  <main>
+    <section class="intro"><div><p class="kicker">Interactive walkthrough</p><h1>Try a design direction.</h1></div><p>Find a reference, try its interaction, and adapt the working detail to your own brand.</p></section>
+    <div class="environment"><span class="local-dot" aria-hidden="true"></span><p>These examples run locally in your browser, using the shipped Atlas search and brand tools.</p><a id="live-test-link" href="#live-mcp" hidden>Live MCP test ↓</a></div>
+    <section class="example-choices" aria-label="Guided examples">
+      <button type="button" data-example="meeting-note" aria-pressed="true"><strong>Team notes</strong><span>A decision with a clear next action</span></button>
+      <button type="button" data-example="service-fold" aria-pressed="false"><strong>Service answers</strong><span>An answer that opens in place</span></button>
+      <button type="button" data-example="press-ticket" aria-pressed="false"><strong>Reservation feedback</strong><span>A useful state change with motion</span></button>
+    </section>
+    <div class="workspace">
+      <section class="research" aria-labelledby="search-title"><h2 id="search-title">Find a reference</h2><form id="search-form"><label for="reference-search" class="sr-only">Search the shipped catalog</label><div class="search-field"><input id="reference-search" type="search" value="meeting notes" placeholder="Describe an interface…"><button type="submit" aria-label="Search references">↗</button></div></form><p id="search-status" class="help" role="status"></p><div id="search-results" class="search-results"></div></section>
+      <section class="study" aria-label="Selected reference and its source">
+        <div class="study-heading"><div><p class="kicker" id="reference-category"></p><h2 id="reference-title">Loading the reference…</h2></div><a id="gallery-link" href="./">Open in library ↗</a></div>
+        <p id="reference-summary" class="study-summary"></p>
+        <div class="preview-toolbar"><div role="group" aria-label="Preview content"><button id="original-view" type="button" aria-pressed="true">Original study</button><button id="brand-view" type="button" aria-pressed="false" disabled>Your brand</button></div><button id="replay" type="button">Reset preview</button></div>
+        <div class="preview-stage"><iframe id="specimen" aria-busy="true" title="Selected Atlas specimen" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></div>
+        <p id="interaction-hint" class="interaction-hint"></p>
+        <section class="provenance" aria-labelledby="source-title"><div><p class="kicker">Source and scope</p><h3 id="source-title"></h3><a id="source-link" target="_blank" rel="noopener noreferrer">Study the primary reference ↗</a></div><p id="provenance-note"></p></section>
+        <details class="source-details"><summary>Inspect the source and build guidance</summary><div class="source-tabs" role="group" aria-label="Source file"><button type="button" data-source="guidance" aria-pressed="true">Build guidance</button><button type="button" data-source="html" aria-pressed="false">HTML</button><button type="button" data-source="css" aria-pressed="false">CSS</button><button id="javascript-tab" type="button" data-source="js" aria-pressed="false">JavaScript</button></div><p id="source-file" class="help"></p><pre tabindex="0"><code id="source-code"></code></pre></details>
+      </section>
+      <aside class="adaptation" aria-labelledby="adapt-title"><p class="kicker">Put the reference to work</p><h2 id="adapt-title">Make it yours.</h2><p class="help">Keep the interaction. Change the identity, color, and type using the production brand generator.</p><form id="brand-form"><div class="field"><label for="brand-name">Brand name</label><input id="brand-name" required maxlength="100" value="Morrow"></div><div class="field"><label for="brand-description">What does it do?</label><textarea id="brand-description" required maxlength="4000" rows="3">Meeting notes that keep decisions and next actions together.</textarea></div><div class="field"><label for="brand-color">Brand color</label><div class="color-input"><span id="color-swatch" aria-hidden="true"></span><input id="brand-color" required pattern="#[0-9a-fA-F]{6}" maxlength="7" value="#34664b" spellcheck="false"></div></div><div class="palette-options" role="group" aria-label="Example brand palettes"><button type="button" data-palette="morrow" aria-label="Use Morrow’s green palette" aria-pressed="true"><span style="background:#34664b"></span>Morrow</button><button type="button" data-palette="cobalt" aria-label="Use Cobalt’s blue palette" aria-pressed="false"><span style="background:#2459aa"></span>Cobalt</button><button type="button" data-palette="saffron" aria-label="Use Saffron’s yellow palette" aria-pressed="false"><span style="background:#ffcc33"></span>Saffron</button></div><p id="brand-error" class="error" role="alert" hidden></p><button type="submit" class="primary">Apply brand <span aria-hidden="true">↗</span></button></form><div id="brand-result" hidden><p id="brand-status" role="status"></p><p id="contrast-status" class="help"></p><button id="download" class="download" type="button">Download working HTML ↓</button><p class="help">A complete local file, including styles and specimen behavior. Sample people, prices, and operational facts require your review.</p></div><a class="workbench-link" href="./workbench.html">Open the full brand workbench ↗</a></aside>
+    </div>
+    <details id="recording" class="walkthrough-recording"><summary>Watch the 14-second reservation walkthrough</summary>
+      <video controls playsinline preload="none" poster="./try/walkthrough.png" width="1280" height="900" aria-label="Reservation demo, holding and releasing a berth, then applying the Harbor Ferry brand"><source src="./try/walkthrough.mp4" type="video/mp4"><a href="./try/walkthrough.mp4">Download the walkthrough</a></video>
+      <p>Select <strong>Reservation feedback</strong>, hold a berth, then release it. Enter Harbor Ferry and its blue accent, apply the brand, and try the same reservation again.</p>
+    </details>
+    <p id="load-error" class="error" role="alert" hidden></p>
+    <section id="live-mcp" hidden></section>
+  </main>
+  <footer><a href="./">Explore the full catalog</a><a href="https://github.com/Tradelord223/design-atlas-mcp">Code, installation, and evidence ↗</a></footer>
+</body>
+</html>

@@ -1,0 +1,100 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, extname } from 'node:path';
+import { chromium } from 'playwright-core';
+import { buildTry } from '../scripts/try.js';
+import { buildLiveDemo } from '../scripts/live-demo.js';
+
+const chrome = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+
+test('public walkthrough searches real references, runs interactions, and exports a working branded study', { skip: !existsSync(chrome), timeout: 60000 }, async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'atlas-try-'));
+  const server = createServer(async (request, response) => {
+    try {
+      const file = join(directory, new URL(request.url, 'http://localhost').pathname);
+      response.setHeader('Content-Type', ({ '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json' })[extname(file)] || 'text/plain');
+      response.end(await readFile(file));
+    } catch { response.writeHead(404).end(); }
+  });
+  let browser;
+  try {
+    await buildTry(directory);
+    await buildLiveDemo(directory);
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    browser = await chromium.launch({ executablePath: chrome, headless: true });
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true });
+    const errors = [];
+    page.on('pageerror', failure => errors.push(failure.message));
+    await page.goto(`http://127.0.0.1:${server.address().port}/try.html`);
+    await page.getByRole('heading', { name: 'Structured meeting note', exact: true }).waitFor();
+    assert.equal(await page.locator('#source-link').getAttribute('href'), 'https://www.granola.ai/');
+    assert.equal(await page.locator('[data-result]').count(), 4);
+    await page.locator('#specimen[aria-busy=false]').waitFor();
+    const firstAction = page.frameLocator('#specimen').getByRole('checkbox').first();
+    await firstAction.scrollIntoViewIfNeeded();
+    await firstAction.check();
+    assert.equal(await firstAction.isChecked(), true);
+    await firstAction.focus();
+    await firstAction.press('Space');
+    assert.equal(await firstAction.isChecked(), false);
+    await firstAction.press('Space');
+    assert.equal(await firstAction.isChecked(), true);
+    await page.locator('.source-details > summary').click();
+    assert.match(await page.locator('#source-code').textContent(), /Store decisions and actions/);
+    await page.locator('[data-source=html]').click();
+    assert.match(await page.locator('#source-code').textContent(), /type="checkbox"/);
+    await page.locator('[data-example=service-fold]').click();
+    const question = page.frameLocator('#specimen').getByText('How long can I keep a book?', { exact: true });
+    await question.click();
+    assert.equal(await page.frameLocator('#specimen').locator('details').first().getAttribute('open'), '');
+    await page.locator('[data-example=press-ticket]').click();
+    await page.frameLocator('#specimen').getByRole('button', { name: 'Hold berth' }).click();
+    assert.equal(await page.frameLocator('#specimen').locator('[aria-live]').textContent(), 'Held for the 18:40 sailing.');
+    assert.ok(await page.frameLocator('#specimen').locator('.stub').evaluate(element => element.getAnimations({ subtree: true }).length > 0));
+    await page.getByRole('button', { name: 'Reset preview' }).click();
+    await page.frameLocator('#specimen').getByRole('button', { name: 'Hold berth' }).waitFor();
+    await page.locator('[data-palette=saffron]').click();
+    const motionDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download working HTML' }).click();
+    const motionFile = await motionDownload;
+    const motionArtifact = await readFile(await motionFile.path(), 'utf8');
+    const motionPage = await browser.newPage();
+    await motionPage.setContent(motionArtifact);
+    await motionPage.getByRole('button', { name: 'Hold berth' }).click();
+    assert.equal(await motionPage.locator('[aria-live]').textContent(), 'Held for the 18:40 sailing.');
+    await motionPage.close();
+    await page.locator('[data-example=meeting-note]').click();
+    await page.locator('#brand-name').fill('Harbor Notes');
+    await page.locator('#brand-description').fill('A shared record of decisions and the people responsible for the next step.');
+    await page.locator('#brand-color').fill('#ffff00');
+    await page.getByRole('button', { name: 'Apply brand' }).click();
+    await page.frameLocator('#specimen').getByRole('heading', { name: 'Harbor Notes', exact: true }).waitFor();
+    assert.match(await page.locator('#brand-status').textContent(), /Harbor Notes applied/);
+    const waiting = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download working HTML' }).click();
+    const download = await waiting;
+    const artifact = await readFile(await download.path(), 'utf8');
+    assert.equal(download.suggestedFilename(), 'harbor-notes-meeting-note.html');
+    assert.ok(artifact.includes('Harbor Notes'));
+    assert.ok(artifact.includes('type="checkbox"'));
+    const exported = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await exported.setContent(artifact);
+    await exported.getByRole('checkbox').first().check();
+    assert.equal(await exported.getByRole('checkbox').first().isChecked(), true);
+    assert.ok(await exported.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await page.setViewportSize({ width: 390, height: 844 });
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await page.locator('#reference-search').fill('xxqqzzirrelevant');
+    await page.locator('#search-form').evaluate(form => form.requestSubmit());
+    assert.match(await page.locator('#search-status').textContent(), /No references found/);
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser?.close();
+    await new Promise(resolve => server.close(resolve));
+    await rm(directory, { recursive: true, force: true });
+  }
+});

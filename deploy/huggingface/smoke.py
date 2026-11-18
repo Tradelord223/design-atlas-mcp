@@ -60,6 +60,15 @@ async def main():
         accepted = await public.post('/mcp', json=body, headers={**incoming, 'origin': deployment.backend.public_origin})
         assert accepted.status_code == 200
         assert accepted.headers['access-control-allow-origin'] == deployment.backend.public_origin
+        gallery_headers = {'origin': relay.GALLERY_ORIGIN, 'access-control-request-method': 'POST',
+                           'access-control-request-headers': 'content-type, mcp-protocol-version'}
+        preflight = await public.options('/mcp', headers=gallery_headers)
+        assert preflight.status_code == 204
+        assert preflight.headers['access-control-allow-origin'] == relay.GALLERY_ORIGIN
+        gallery_result = await public.post('/mcp', json=body, headers={**incoming, 'origin': relay.GALLERY_ORIGIN})
+        assert gallery_result.status_code == 200
+        assert gallery_result.headers['access-control-allow-origin'] == relay.GALLERY_ORIGIN
+        report['gallery_browser_access'] = True
         report['origin_rejection'] = rejected.status_code
         report['origin_accepted'] = accepted.status_code
         notice = await public.post('/mcp', json={'jsonrpc': '2.0', 'method': 'notifications/initialized'}, headers=incoming)

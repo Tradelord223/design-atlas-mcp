@@ -1,8 +1,8 @@
 # Design Atlas MCP
 
-Design Atlas gives a coding agent a design library it can **see, inspect and implement**. Find a real-world design principle, open an original working study, inspect its source, and adapt it to a brand. The same library powers the MCP server, gallery and browser workbench.
+Design Atlas is an open library of working interface studies for designers and coding agents. Search a reference, try the interaction, inspect its HTML and CSS, and turn it into a kit for your brand.
 
-**[Browse the gallery](https://tradelord223.github.io/design-atlas-mcp/) · [Build a brand kit](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Download the release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.0.1)**
+**[Try the guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) · [Browse 36 studies](https://tradelord223.github.io/design-atlas-mcp/) · [Open the brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Get the MCP release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.0.1)**
 
 | A quiet product introduction | Working issue queue | An editorial motion study |
 | --- | --- | --- |
@@ -10,7 +10,15 @@ Design Atlas gives a coding agent a design library it can **see, inspect and imp
 
 ## Use it today
 
-**In a browser.** Open the [brand workbench](https://tradelord223.github.io/design-atlas-mcp/workbench.html), enter your brand and audience, then preview the result and download HTML, CSS and design tokens. The workbench processes your brief in your browser.
+| To try | Open | What you can do |
+| --- | --- | --- |
+| A working product pattern | [Guided demo](https://tradelord223.github.io/design-atlas-mcp/try.html) | Choose a study, interact with it, inspect the source and adapt it to a brand. |
+| A microinteraction | [Ferry ticket](https://tradelord223.github.io/design-atlas-mcp/?id=press-ticket) | Hold a berth, release it, then inspect the seven motion frames and the code behind the transition. |
+| Your own visual identity | [Brand studio](https://tradelord223.github.io/design-atlas-mcp/workbench.html) | Paste existing HTML and CSS or enter a brief. Preview the kit, check color contrast and download the HTML, stylesheet and tokens. |
+
+[Watch the 14-second recording](https://tradelord223.github.io/design-atlas-mcp/try/walkthrough.mp4) to see the reservation study before and after a brand change. [Download the Harbor Press starter kit](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/harbor-press-kit.zip), unzip it, and open `index.html` to explore the generated site, design tokens and reusable components.
+
+## Connect a coding agent
 
 **Install the MCP once.** Download the release tarball into the current directory, then install that local file with Node.js 22.16 or newer. This works with npm 12’s default remote-package policy.
 

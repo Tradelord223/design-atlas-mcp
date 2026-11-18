@@ -47,7 +47,7 @@ The relay has a single fixed loopback destination and forwards MCP content heade
 It excludes Authorization, Cookie, Host, forwarded headers, and Hugging Face private headers.
 Browser Origin is validated at the public boundary and forwarded to the loopback backend for its own hostname validation.
 It preserves upstream statuses and raw bytes, limits request bodies to the Node server’s 600,000-byte limit, and validates browser origins.
-`SPACE_HOST` supplies the allowed public origin automatically. Local development allows only localhost:7860 origins. Native MCP requests without Origin are accepted.
+`SPACE_HOST` supplies the Space origin automatically. The relay also permits the published GitHub Pages origin for its interactive MCP demo. Local development allows only localhost:7860 origins. Native MCP requests without Origin are accepted.
 The canonical endpoint is `/mcp`. The Gradio visual API is supplementary and uses `/gradio_api/` routes.
 
 ## Preparation and local verification

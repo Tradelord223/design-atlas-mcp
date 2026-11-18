@@ -5,6 +5,7 @@ from starlette.responses import Response, StreamingResponse
 
 REQUEST_HEADERS = {'accept', 'content-type', 'mcp-protocol-version', 'mcp-session-id', 'last-event-id', 'mcp-method', 'mcp-name'}
 RESPONSE_HEADERS = {'content-type', 'content-length', 'content-encoding', 'cache-control', 'mcp-session-id', 'retry-after', 'allow', 'mcp-protocol-version', 'mcp-method', 'mcp-name'}
+GALLERY_ORIGIN = 'https://tradelord223.github.io'
 MAX_BODY = 600_000
 
 
@@ -13,7 +14,7 @@ def mount_mcp(app, backend):
     async def mcp(request: Request):
         origins = request.headers.getlist('origin')
         public_origin = backend.public_origin
-        allowed = {public_origin} if public_origin else {'http://127.0.0.1:7860', 'http://localhost:7860'}
+        allowed = {public_origin, GALLERY_ORIGIN} if public_origin else {'http://127.0.0.1:7860', 'http://localhost:7860'}
         if len(origins) > 1 or (origins and origins[0] not in allowed):
             return Response('Origin is not allowed.', status_code=403)
         cors = {'Vary': 'Origin'}

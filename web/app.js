@@ -46,7 +46,10 @@ async function copy(text) {
   } catch {
     const area = element('textarea');
     area.value = text;
-    $('#detail-body').append(area);
+    area.className = 'copy-fallback';
+    area.setAttribute('aria-label', 'Text to copy');
+    (document.querySelector('dialog[open]') || document.body).append(area);
+    area.focus();
     area.select();
     notify('Select and copy the text below');
   }
@@ -116,6 +119,7 @@ function refreshFilters() {
 }
 
 function setView(view) {
+  if (!catalog) return;
   state.view = view;
   state.tag = '';
   state.iconLimit = 84;
@@ -129,6 +133,7 @@ function setView(view) {
 }
 
 function render() {
+  if (!catalog) return;
   const collection = state.view === 'icons' ? catalog.icons : catalog[state.view];
   const words = state.query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   const matches = collection.filter(item => {
@@ -315,6 +320,71 @@ function openItem(item, type, updateHistory = true) {
   $('#detail-close').focus();
 }
 
+const clientConfigurations = {
+  codex: { command: 'codex mcp add design-atlas -- design-atlas-mcp', help: 'Run this in your terminal, then open a fresh chat.' },
+  claude: { command: 'claude mcp add --transport stdio design-atlas -- design-atlas-mcp', help: 'Run this in your terminal, then start a fresh Claude Code session.' },
+  desktop: { command: JSON.stringify({ mcpServers: { 'design-atlas': { command: 'design-atlas-mcp', args: [] } } }, null, 2), help: 'Add this entry to the MCP configuration in Cursor or Claude Desktop, then restart the client.' }
+};
+const clientTabs = [...document.querySelectorAll('[data-client]')];
+function selectClient(tab) {
+  for (const item of clientTabs) {
+    const selected = item === tab;
+    item.setAttribute('aria-selected', String(selected));
+    item.tabIndex = selected ? 0 : -1;
+  }
+  const config = clientConfigurations[tab.dataset.client];
+  $('#client-command').textContent = config.command;
+  $('#client-help').textContent = config.help;
+  $('#client-instructions').setAttribute('aria-labelledby', tab.id);
+}
+for (const tab of clientTabs) {
+  tab.addEventListener('click', () => selectClient(tab));
+  tab.addEventListener('keydown', event => {
+    const index = clientTabs.indexOf(tab);
+    const positions = { ArrowRight: (index + 1) % clientTabs.length, ArrowLeft: (index + clientTabs.length - 1) % clientTabs.length, Home: 0, End: clientTabs.length - 1 };
+    if (!(event.key in positions)) return;
+    event.preventDefault();
+    const next = clientTabs[positions[event.key]];
+    selectClient(next);
+    next.focus();
+  });
+}
+for (const control of document.querySelectorAll('[data-copy]')) {
+  control.addEventListener('click', () => copy(document.getElementById(control.dataset.copy).textContent));
+}
+const featuredHints = {
+  'service-fold': 'Open a question to try the disclosure.',
+  'command-launcher': 'Search for “projects”, then choose a command.',
+  'cart-edit': 'Change the quantity, remove an item, or undo.'
+};
+function selectFeatured() {
+  if (!catalog) return;
+  const id = $('#featured-select').value;
+  const pattern = catalog.patterns.find(item => item.id === id);
+  if (!pattern) return;
+  $('#featured-preview').srcdoc = pattern.document;
+  $('#featured-preview').title = `${pattern.title} live specimen`;
+  $('#featured-hint').textContent = featuredHints[id] || pattern.summary;
+}
+$('#featured-select').addEventListener('change', selectFeatured);
+$('#featured-inspect').addEventListener('click', () => {
+  const pattern = catalog?.patterns.find(item => item.id === $('#featured-select').value);
+  if (pattern) openItem(pattern, 'patterns');
+});
+function configureConnection() {
+  if (catalog.packageUrl && catalog.packageVersion) {
+    $('#package-download').href = catalog.packageUrl;
+    $('#install-command').textContent = `npm install -g ./design-atlas-mcp-${catalog.packageVersion}.tgz`;
+  }
+  if (catalog.hostedMcpUrl) {
+    const url = new URL(catalog.hostedMcpUrl);
+    if (url.protocol !== 'https:') throw new Error('Hosted MCP connection requires a verified HTTPS URL');
+    $('#hosted-url').textContent = url.href;
+    $('#hosted-connection').append(link('Test the live connection →', './try.html#live-mcp', 'hosted-test-link'));
+    $('#hosted-connection').hidden = false;
+  }
+}
+
 $('#detail-close').addEventListener('click', closeDetail);
 detail.addEventListener('cancel', event => { event.preventDefault(); closeDetail(); });
 $('#install-open').addEventListener('click', () => $('#install').showModal());
@@ -365,6 +435,8 @@ try {
   const rank=id=>featured.includes(id)?featured.indexOf(id):featured.length;
   catalog.patterns.sort((a,b)=>rank(a.id)-rank(b.id));
   $('#pattern-count').textContent = catalog.patterns.length;
+  configureConnection();
+  selectFeatured();
   refreshFilters();
   render();
   syncRoute();
