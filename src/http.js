@@ -1,6 +1,6 @@
 import {createServer as httpServer} from 'node:http';
 import {createMcpHandler} from '@modelcontextprotocol/server';
-import {toNodeHandler,hostHeaderValidation,originValidation} from '@modelcontextprotocol/node';
+import {toNodeHandler,hostHeaderValidation} from '@modelcontextprotocol/node';
 import {createServer} from './server.js';
 
 export function startHttp({port=8787,host='127.0.0.1',publicOrigin}={}){
@@ -13,8 +13,12 @@ export function startHttp({port=8787,host='127.0.0.1',publicOrigin}={}){
   const server=httpServer(async(req,res)=>{
     try{
       const localPort=server.address().port;
-      const validateOrigin=originValidation(['http://127.0.0.1:'+localPort,'http://localhost:'+localPort,'http://[::1]:'+localPort,...(origin?[origin.origin]:[])]);
-      if(!validateHost(req,res)||!validateOrigin(req,res)) return;
+      if(!validateHost(req,res)) return;
+      const allowedOrigins=['http://127.0.0.1:'+localPort,'http://localhost:'+localPort,'http://[::1]:'+localPort,origin?.origin];
+      if(req.headers.origin!==undefined&&!allowedOrigins.includes(req.headers.origin)){
+        res.writeHead(403,{'content-type':'text/plain'}).end('Origin is not allowed.');
+        return;
+      }
       if(req.url?.split('?')[0]!=='/mcp'){
         res.writeHead(404,{'content-type':'text/plain'}).end('Use /mcp for the Design Atlas MCP server.');return;
       }

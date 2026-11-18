@@ -122,6 +122,12 @@ test('official SDK client exercises every tool over HTTP; browser origin checked
     const url=new URL('http://127.0.0.1:'+server.address().port+'/mcp');
     await checkTransport(new StreamableHTTPClientTransport(url));
     assert.equal((await fetch(url,{method:'POST',headers:{origin:'https://unrelated.example'},body:'{}'})).status,403);
+    const body=JSON.stringify({jsonrpc:'2.0',id:2,method:'initialize',params:{protocolVersion:'2025-11-25',capabilities:{},clientInfo:{name:'origin-check',version:'1'}}});
+    for(const origin of [url.origin,'http://localhost:'+url.port]){
+      const valid=await fetch(url,{method:'POST',headers:{origin,'content-type':'application/json',accept:'application/json, text/event-stream'},body});
+      assert.equal(valid.status,200);assert.match(await valid.text(),/design-atlas/);
+    }
+    assert.equal((await fetch(url,{method:'POST',headers:{origin:'http://localhost:1'},body})).status,403);
     const init=await fetch(url,{method:'POST',headers:{'content-type':'application/json',accept:'application/json, text/event-stream'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-11-25',capabilities:{},clientInfo:{name:'legacy-test',version:'1'}}})});
     assert.equal(init.status,200);assert.match(await init.text(),/design-atlas/);
   }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve))}

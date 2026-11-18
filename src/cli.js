@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import manifest from '../package.json' with {type:'json'};
 import {readFile,mkdir,writeFile,rmdir,unlink} from 'node:fs/promises';
 import {resolve,dirname,basename,join} from 'node:path';
 import {parseArgs} from 'node:util';
@@ -9,7 +10,7 @@ import {buildBrandKit} from './brand.js';
 import {packs,patterns,flows} from './catalog.js';
 import {iconPacks} from './icons.js';
 
-const help=`Design Atlas MCP 1.0.0
+const help=`Design Atlas MCP ${manifest.version}
   design-atlas-mcp                  Start the stdio MCP server
   design-atlas-mcp http [--port N]  Start Streamable HTTP at 127.0.0.1:8787/mcp
   design-atlas-mcp kit brief.json output-directory
@@ -20,9 +21,9 @@ async function run(){
   const [cmd,...args]=process.argv.slice(2);
   if(!cmd||cmd==='stdio'){serveStdio(createServer);return}
   if(cmd==='--help'||cmd==='-h'){console.log(help);return}
-  if(cmd==='--version'){console.log('1.0.0');return}
+  if(cmd==='--version'){console.log(manifest.version);return}
   if(cmd==='info'){
-    console.log(JSON.stringify({name:'Design Atlas MCP',version:'1.0.0',patterns:patterns.length,packs:packs.length,flows:flows.length,iconPacks:iconPacks.map(p=>({id:p.id,count:p.count}))},null,2));return;
+    console.log(JSON.stringify({name:'Design Atlas MCP',version:manifest.version,patterns:patterns.length,packs:packs.length,flows:flows.length,iconPacks:iconPacks.map(p=>({id:p.id,count:p.count}))},null,2));return;
   }
   if(cmd==='http'||cmd==='--http'){
     const {values}=parseArgs({args,options:{port:{type:'string'}}});

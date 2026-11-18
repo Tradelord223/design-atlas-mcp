@@ -1,3 +1,4 @@
+import manifest from '../package.json' with {type:'json'};
 import * as z from 'zod';
 import { McpServer } from '@modelcontextprotocol/server';
 import { flows, packs } from './catalog.js';
@@ -75,7 +76,7 @@ export const operations=[
   ['remix_inspirations','Build from a reference, extract a named detail, generate three side-by-side variations, or combine selected sections with attributable motion.',{ids:z.array(str(500)).min(1).max(5),mode:z.enum(['rebuild','detail','variations','combine']),detail:str(300).optional(),headlineMotion:z.literal('opening-imprint').optional()},remix]
 ];
 export function createServer(){
-  const server=new McpServer({name:'design-atlas',title:'Design Atlas',version:'1.0.0'},{
+  const server=new McpServer({name:'design-atlas',title:'Design Atlas',version:manifest.version},{
     instructions:'Search with the actual design problem. Show candidate links and source provenance. Inspect selected references and read instructions.md before rebuilding. Use the existing brand brief and create_brand_kit for an implementation. The library and tools run locally.'
   });
   for(const [name,description,shape,handler] of operations){

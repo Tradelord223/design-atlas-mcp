@@ -2,7 +2,7 @@
 
 Design Atlas gives a coding agent a design library it can **see, inspect and implement**. Find a real-world design principle, open an original working study, inspect its source, and adapt it to a brand. The same library powers the MCP server, gallery and browser workbench.
 
-**[Browse the gallery](https://tradelord223.github.io/design-atlas-mcp/) · [Build a brand kit](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Download the release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.0.0)**
+**[Browse the gallery](https://tradelord223.github.io/design-atlas-mcp/) · [Build a brand kit](https://tradelord223.github.io/design-atlas-mcp/workbench.html) · [Download the release](https://github.com/Tradelord223/design-atlas-mcp/releases/tag/v1.0.1)**
 
 | A quiet product introduction | Working issue queue | An editorial motion study |
 | --- | --- | --- |
@@ -15,12 +15,12 @@ Design Atlas gives a coding agent a design library it can **see, inspect and imp
 **Install the MCP once.** Download the release tarball into the current directory, then install that local file with Node.js 22.16 or newer. This works with npm 12’s default remote-package policy.
 
 ```sh
-curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz
-npm install -g ./design-atlas-mcp-1.0.0.tgz
+curl -fLO https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/design-atlas-mcp-1.0.1.tgz
+npm install -g ./design-atlas-mcp-1.0.1.tgz
 design-atlas-mcp info
 ```
 
-You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.0/design-atlas-mcp-1.0.0.tgz). The release includes SHA256SUMS.
+You can also [download the package in your browser](https://github.com/Tradelord223/design-atlas-mcp/releases/download/v1.0.1/design-atlas-mcp-1.0.1.tgz). The release includes SHA256SUMS.
 
 **In Codex**, register the installed executable and open a fresh chat.
 
@@ -55,7 +55,7 @@ For a GUI client with a restricted PATH, use `node` as the command and the absol
 
 For an existing product, paste its HTML and CSS into the workbench or use `import_brand_identity`. Review the identified colors, type, corner radii and the declarations they came from. Give the agent a specific component and its source. Ask it to preserve the brand typography and the component’s important states, compare two Atlas treatments, and apply the selected change. A screenshot or source link accompanies each study. Atlas previews show original implementations. A source link identifies the product or design-system example behind the study.
 
-## Included in v1.0.0
+## Included in v1.0.1
 
 - **36 studies** covering landing pages, notes, command menus, issue triage, forms, commerce, editorial layouts, financial dashboards, mobile onboarding, studios and motion. Each includes source attribution, an implementation and a versioned evidence bundle.
 - **Nine design packs** with design decisions and tokens. Choose Quiet Product, Precise Workspace, Public Service, Material Commerce, Editorial Reference, Financial Clarity, Daily Companion, Independent Studio or Motion Printshop. The gallery shows the studies in each direction.
