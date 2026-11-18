@@ -108,7 +108,7 @@ npm run gallery                  # static site in dist/site
 
 Browser checks use installed Chrome on macOS or `CHROME_PATH` elsewhere. The GitHub workflow supplies Chrome and verifies the browser tests before deploying Pages. To regenerate a specimen’s visual evidence, run `CHROME_PATH=/path/to/chrome npm run render -- opening-imprint`. With no IDs, the renderer captures the entire authored library.
 
-For shared HTTP hosting, put the Node service behind HTTPS, set `ATLAS_HOST=0.0.0.0` and set `ATLAS_PUBLIC_ORIGIN` to the external origin. The HTTP server checks Host and Origin, accepts requests at `/mcp`, and holds no accounts or user content. A private deployment can enforce its own access controls at the reverse proxy. GitHub Pages serves the static gallery and workbench.
+For shared HTTP hosting, put the Node service behind HTTPS, set `ATLAS_HOST=0.0.0.0` and set `ATLAS_PUBLIC_ORIGIN` to the external origin. The HTTP server checks Host and Origin, accepts requests at `/mcp`, and holds no accounts or user content. A private deployment can enforce its own access controls at the reverse proxy. GitHub Pages serves the static gallery and workbench. A Gradio deployment adapter hosts the complete MCP at `/mcp` and adds optional screenshot similarity search on ZeroGPU. [Hugging Face deployment files](deploy/huggingface/README.md)
 
 ## Add your own design packs
 

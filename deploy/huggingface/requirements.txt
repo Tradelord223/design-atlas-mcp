@@ -1,0 +1,9 @@
+gradio==6.32.0
+spaces==0.52.1
+fastapi==0.164.0
+uvicorn==0.54.0
+httpx==0.28.1
+nodejs-wheel==24.13.0
+pillow==13.0.0
+transformers==5.23.0
+torch==2.13.0
